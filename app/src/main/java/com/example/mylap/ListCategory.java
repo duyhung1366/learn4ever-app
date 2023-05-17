@@ -2,15 +2,21 @@ package com.example.mylap;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.mylap.api.ConfigApi;
 import com.example.mylap.models.Category;
 import com.example.mylap.payload.Payload;
 import com.example.mylap.responsive.GetCategory;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +31,15 @@ public class ListCategory extends AppCompatActivity {
     Payload payload;
     ArrayAdapter adapterListView;
     ArrayList<String> dataView = new ArrayList<>();
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+
     @Override
     protected void onCreate(Bundle savedInstantState) {
         super.onCreate(savedInstantState);
         setContentView(R.layout.category_list);
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.navigation_drawer);
         adapterListView = new ArrayAdapter(ListCategory.this, android.R.layout.simple_list_item_1);
         configApi = new ConfigApi();
         payload = new Payload();
@@ -61,5 +72,26 @@ public class ListCategory extends AppCompatActivity {
         });
         listCategory = findViewById(R.id.listCategory);
         listCategory.setAdapter(adapterListView);
+
+//        drawer
+//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+//                this,
+//                drawerLayout,
+//                R.string.navigation_drawer_open,
+//                R.string.navigation_drawer_close
+//        );
+//        drawerLayout.addDrawerListener(toggle);
+//        toggle.syncState();
+        Button btnToggleDrawer = findViewById(R.id.btnToggleDrawer);
+        btnToggleDrawer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                } else {
+                    drawerLayout.openDrawer(GravityCompat.START);
+                }
+            }
+        });
     }
 }
