@@ -6,32 +6,68 @@
     android:layout_height="match_parent"
     tools:context=".ListCategory">
 
-    <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="359dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:orientation="vertical">
 
-            <TextView
+            <!-- Header -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#FFFF00"
-                android:gravity="center"
-                android:text="Danh sách danh mục"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                />
+                android:layout_gravity="right"
+                android:gravity="center_vertical"
+                android:padding="16dp">
 
-            <Button
-                android:id="@+id/btnToggleDrawer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Toggle Drawer" />
+                <!-- Logo -->
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:contentDescription="Logo"
+                    android:src="@drawable/logo" />
+
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="1"-->
+<!--                    >-->
+
+<!--                    &lt;!&ndash; Button Đăng nhập &ndash;&gt;-->
+
+<!--                    &lt;!&ndash; Button Đăng ký &ndash;&gt;-->
+
+<!--                </LinearLayout>-->
+
+                <Button
+                    android:id="@+id/btnLogin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginStart="16dp"
+                    android:text="Đăng nhập" />
+
+                <Button
+                    android:id="@+id/btnRegister"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginStart="16dp"
+                    android:text="Đăng ký" />
+
+                <Button
+                    android:id="@+id/btnToggleDrawer"
+                    android:layout_width="71dp"
+                    android:layout_height="wrap_content"
+                    android:text="."/>
+
+            </LinearLayout>
 
         </LinearLayout>
 

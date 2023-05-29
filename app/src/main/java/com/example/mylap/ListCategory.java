@@ -44,6 +44,8 @@ public class ListCategory extends AppCompatActivity {
         configApi = new ConfigApi();
         payload = new Payload();
         payload.setStatus(1);
+
+        // api get category
         configApi.getApiService().getCategorys(1).enqueue(new Callback<GetCategory>() {
             @Override
             public void onResponse(Call<GetCategory> call, Response<GetCategory> response) {
@@ -57,6 +59,7 @@ public class ListCategory extends AppCompatActivity {
                     adapterListView.addAll(dataView);
                     adapterListView.notifyDataSetChanged();
                 } else {
+                    Log.d("TAG", "error");
                     // Xử lý lỗi khi response không thành
                     List<Category> data = new ArrayList<>();
                     adapterListView.addAll(data);
@@ -74,14 +77,6 @@ public class ListCategory extends AppCompatActivity {
         listCategory.setAdapter(adapterListView);
 
 //        drawer
-//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-//                this,
-//                drawerLayout,
-//                R.string.navigation_drawer_open,
-//                R.string.navigation_drawer_close
-//        );
-//        drawerLayout.addDrawerListener(toggle);
-//        toggle.syncState();
         Button btnToggleDrawer = findViewById(R.id.btnToggleDrawer);
         btnToggleDrawer.setOnClickListener(new View.OnClickListener() {
             @Override
