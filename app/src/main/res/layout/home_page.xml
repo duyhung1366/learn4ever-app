@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ListCategory">
+    tools:context=".page.home.HomeActivity">
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawer_layout"
@@ -16,34 +16,27 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:background="@color/background"
+            >
 
             <!-- Header -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:gravity="center_vertical"
-                android:padding="16dp">
+                android:layout_gravity="center_horizontal"
+                android:gravity="center|center_horizontal"
+                android:padding="16dp"
+                android:background="@drawable/shadow_header"
+                >
 
                 <!-- Logo -->
                 <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
+                    android:layout_width="80dp"
+                    android:layout_height="25dp"
                     android:contentDescription="Logo"
-                    android:src="@drawable/logo" />
-
-<!--                <LinearLayout-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_weight="1"-->
-<!--                    >-->
-
-<!--                    &lt;!&ndash; Button Đăng nhập &ndash;&gt;-->
-
-<!--                    &lt;!&ndash; Button Đăng ký &ndash;&gt;-->
-
-<!--                </LinearLayout>-->
+                    android:src="@drawable/logo"
+                    />
 
                 <Button
                     android:id="@+id/btnLogin"
@@ -51,7 +44,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:layout_marginStart="16dp"
-                    android:text="Đăng nhập" />
+                    android:text="Đăng nhập"
+                    android:textColor="#FFFFFF"
+                    android:stateListAnimator="@animator/button_click_anim"
+                    />
 
                 <Button
                     android:id="@+id/btnRegister"
@@ -59,15 +55,23 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:layout_marginStart="16dp"
-                    android:text="Đăng ký" />
-
-                <Button
-                    android:id="@+id/btnToggleDrawer"
-                    android:layout_width="71dp"
-                    android:layout_height="wrap_content"
-                    android:text="."/>
+                    android:text="Đăng ký"
+                    android:textColor="#FFFFFF"
+                    android:stateListAnimator="@animator/button_click_anim"
+                    />
 
             </LinearLayout>
+<!--            <Button-->
+<!--                android:id="@+id/btnToggleDrawer"-->
+<!--                android:layout_width="71dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="."/>-->
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
         </LinearLayout>
 
