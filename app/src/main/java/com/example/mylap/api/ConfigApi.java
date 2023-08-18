@@ -10,7 +10,7 @@ public class ConfigApi {
 
     public ConfigApi() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://learn4ever.onrender.com/")
+                .baseUrl("https://elearning-server.onrender.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         this.apiService = retrofit.create(ApiService.class);

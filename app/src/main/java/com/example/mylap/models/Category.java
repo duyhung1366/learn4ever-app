@@ -1,7 +1,7 @@
 package com.example.mylap.models;
 
 public class Category {
-    private String id;
+    private String _id;
     private String name;
     private int status;
     private String avatar;
@@ -14,8 +14,8 @@ public class Category {
     public Category() {
     }
 
-    public Category(String id, String name, int status, String avatar, String des, int index, String slug, Long createDate, Long updateDate) {
-        this.id = id;
+    public Category(String _id, String name, int status, String avatar, String des, int index, String slug, Long createDate, Long updateDate) {
+        this._id = _id;
         this.name = name;
         this.status = status;
         this.avatar = avatar;
@@ -27,11 +27,11 @@ public class Category {
     }
 
     public String getId() {
-        return id;
+        return _id;
     }
 
     public void setId(String id) {
-        this.id = id;
+        this._id = id;
     }
 
     public String getName() {

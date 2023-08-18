@@ -17,7 +17,6 @@ import com.example.mylap.R;
 import com.example.mylap.api.ConfigApi;
 import com.example.mylap.models.Category;
 import com.example.mylap.page.login.LoginActivity;
-import com.example.mylap.payload.Payload;
 import com.example.mylap.responsive.GetCategory;
 import com.google.android.material.navigation.NavigationView;
 
@@ -31,7 +30,6 @@ import retrofit2.Response;
 public class HomeActivity extends AppCompatActivity {
     ListView listCategory;
     ConfigApi configApi = new ConfigApi();
-    Payload payload;
     ArrayAdapter adapterListView;
     ArrayList<String> dataView = new ArrayList<>();
     DrawerLayout drawerLayout;
@@ -48,8 +46,6 @@ public class HomeActivity extends AppCompatActivity {
         navigationView = findViewById(R.id.navigation_drawer);
         adapterListView = new ArrayAdapter(HomeActivity.this, android.R.layout.simple_list_item_1);
         configApi = new ConfigApi();
-        payload = new Payload();
-        payload.setStatus(1);
         // Khởi tạo danh sách các mục
         categoryList = new ArrayList<>();
 
@@ -67,7 +63,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onResponse(Call<GetCategory> call, Response<GetCategory> response) {
                 if (response.isSuccessful()) {
                     GetCategory data = response.body();
-                    Log.d("TAG", "Dữ liệu của bạn: " + data.getData().get(0).getName());
+//                    Log.d("TAG", "Dữ liệu của bạn: " + data.getData().get(0).getName());
                     // Cập nhật dữ liệu vào Adapter và cập nhật ListView
                     for (int i = 0; i < data.getData().size(); i++) {
                         dataView.add(data.getData().get(i).getName());

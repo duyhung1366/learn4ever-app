@@ -20,5 +20,8 @@ public interface ApiService {
     @POST("api/category/load-category-by-status")
     Call<GetCategory> getCategorys(@Query("status") int status);
 
+    @POST("api/category/getCategoryBySlug")
+    Call<GetCategory> getCategoryBySlug(@Query("slug") String slug);
+
     // Các phương thức API khác...
 }
