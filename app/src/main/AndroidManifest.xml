@@ -15,7 +15,7 @@
         android:theme="@style/Theme.MyLap"
         tools:targetApi="31">
         <activity
-            android:name=".page.DetailCategory.DetailCategory"
+            android:name=".page.listCourse.ListCourse"
             android:exported="false" />
         <activity
             android:name=".page.login.LoginActivity"

@@ -75,20 +75,6 @@
 
         </LinearLayout>
 
-        <!-- Drawer -->
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/navigation_drawer"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start">
-
-            <!-- Đặt menu và các thành phần khác của Drawer ở đây -->
-            <ListView
-                android:id="@+id/listCategory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </com.google.android.material.navigation.NavigationView>
     </androidx.drawerlayout.widget.DrawerLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
