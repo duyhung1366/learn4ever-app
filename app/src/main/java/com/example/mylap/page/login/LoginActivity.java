@@ -26,6 +26,8 @@ import com.example.mylap.api.ConfigApi;
 import com.example.mylap.page.home.HomeActivity;
 import com.example.mylap.responsive.GetCategory;
 import com.example.mylap.responsive.LoginRes;
+import com.example.mylap.utils.ProgressDialogUtils;
+import com.example.mylap.utils.SharedPreferencesUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -62,10 +64,7 @@ public class LoginActivity extends AppCompatActivity {
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
 
-                ProgressDialog progressDialog = new ProgressDialog(loginContext);
-                progressDialog.setMessage("Loading...");
-                progressDialog.setCancelable(false);
-
+                ProgressDialog progressDialog = ProgressDialogUtils.createProgressDialog(loginContext);
                 progressDialog.show();
                 configApi.getApiService().login(username, password).enqueue(new Callback<LoginRes>() {
                     @Override
@@ -78,9 +77,8 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Không tồn tại tài khoản", Toast.LENGTH_SHORT).show();
                             } else if(!token.equals("")) {
                                 // Lưu giá trị token vào SharedPreferences
-                                SharedPreferences preferences = getSharedPreferences("my_prefs", Context.MODE_PRIVATE);
-                                SharedPreferences.Editor editor = preferences.edit();
-                                editor.putString("token", token);
+                                SharedPreferencesUtils.saveStringToSharedPreferences(loginContext,"token", token);
+
                                 Toast.makeText(getApplicationContext(), "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(loginContext, HomeActivity.class);
                                 loginContext.startActivity(intent);
