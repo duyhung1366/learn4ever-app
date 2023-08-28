@@ -4,6 +4,7 @@ import com.example.mylap.models.Category;
 import com.example.mylap.responsive.CountLearnRes;
 import com.example.mylap.responsive.GetCategory;
 import com.example.mylap.responsive.GetListCourse;
+import com.example.mylap.responsive.LoginRes;
 
 import java.util.List;
 
@@ -31,6 +32,10 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("/api-mobile/get-list-course-by-category-id")
     Call<GetListCourse> getListCourseByCategoryId(@Field("categoryId") String categoryId);
+
+    @FormUrlEncoded
+    @POST("/api-mobile/login")
+    Call<LoginRes> login(@Field("account") String account, @Field("password") String password);
 
     // Các phương thức API khác...
 }
