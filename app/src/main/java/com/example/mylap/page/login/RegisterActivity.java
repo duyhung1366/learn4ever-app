@@ -1,6 +1,8 @@
 package com.example.mylap.page.login;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 
 
 import com.example.mylap.R;
+import com.example.mylap.api.ConfigApi;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -24,11 +27,14 @@ public class RegisterActivity extends AppCompatActivity {
     private RadioGroup radioGroupGender;
     private TextView textViewError;
     private Button btnRegister;
+    ConfigApi configApi = new ConfigApi();
+    private Context registerContext;
 
     @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_register);
+            this.registerContext = this;
 
             etUsername = findViewById(R.id.etUsername);
             etEmail = findViewById(R.id.etEmail);
@@ -61,6 +67,8 @@ public class RegisterActivity extends AppCompatActivity {
 
                     // Kiểm tra dữ liệu và xử lý đăng ký tại đây
                     Log.d("TAG", "username : " + username + " pwd: " + password + " email : " + email  + "use ; " + user + " number : " + number + " gender : " + gender);
+
+
                 }
             });
         }

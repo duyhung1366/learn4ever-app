@@ -37,5 +37,17 @@ public interface ApiService {
     @POST("/api-mobile/login")
     Call<LoginRes> login(@Field("account") String account, @Field("password") String password);
 
+    @FormUrlEncoded
+    @POST("/api-mobile/register")
+    Call<LoginRes> register(
+            @Field("account") String account,
+            @Field("password") String password,
+            @Field("name") String name,
+            @Field("email") String email,
+            @Field("phoneNumber") String phoneNumber,
+            @Field("gender") int gender,
+            @Field("reTypePassword") String reTypePassword
+    );
+
     // Các phương thức API khác...
 }
