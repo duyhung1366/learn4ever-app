@@ -45,8 +45,7 @@ public interface ApiService {
             @Field("name") String name,
             @Field("email") String email,
             @Field("phoneNumber") String phoneNumber,
-            @Field("gender") int gender,
-            @Field("reTypePassword") String reTypePassword
+            @Field("gender") int gender
     );
 
     // Các phương thức API khác...
