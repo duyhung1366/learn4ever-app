@@ -14,42 +14,48 @@
     <EditText
         android:id="@+id/etUsername"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_margin="16dp"
         android:hint="Tên Đăng Nhập"
-        android:textColor="@color/textColor" />
+        android:textColorHint="#325535"
+        android:textColor="#000000"/>
+
 
     <EditText
         android:id="@+id/etEmail"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_margin="16dp"
         android:hint="Email"
-        android:textColor="@color/textColor"/>
+        android:textColorHint="#325535"
+        android:textColor="#000000"/>
 
     <EditText
         android:id="@+id/etUser"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_margin="16dp"
         android:hint="Tên Người Dùng"
-        android:textColor="@color/textColor"/>
+        android:textColorHint="#325535"
+        android:textColor="#000000"/>
 
     <EditText
         android:id="@+id/etNumber"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_margin="16dp"
         android:hint="Số Điện Thoại"
-        android:textColor="@color/textColor"/>
+        android:textColorHint="#325535"
+        android:textColor="#000000"/>
 
     <RadioGroup
         android:id="@+id/radioGioiTinh"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:hint="Chọn Giới Tính"
         android:orientation="horizontal"
-        android:textColor="@color/textColor">
+        android:textColorHint="#325535"
+        android:textColor="#000000">
 
         <RadioButton
             android:id="@+id/radioButtonMale"
@@ -58,7 +64,8 @@
             android:layout_margin="16dp"
             android:text="Nam"
             android:tag="1"
-            android:textColor="@color/textColor" />
+            android:textColorHint="#325535"
+            android:textColor="#000000"/>
 
         <RadioButton
             android:id="@+id/radioButtonFemale"
@@ -67,27 +74,30 @@
             android:layout_margin="16dp"
             android:text="Nữ"
             android:tag="2"
-            android:textColor="@color/textColor" />
+            android:textColorHint="#325535"
+            android:textColor="#000000"/>
 
     </RadioGroup>
 
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_margin="16dp"
         android:inputType="textPassword"
         android:hint="Mật khẩu"
-        android:textColor="@color/textColor"/>
+        android:textColorHint="#325535"
+        android:textColor="#000000"/>
 
     <EditText
         android:id="@+id/etRePassword"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_margin="16dp"
         android:inputType="textPassword"
         android:hint="Nhập Lại Mật khẩu"
-        android:textColor="@color/textColor"/>
+        android:textColorHint="#325535"
+        android:textColor="#000000"/>
 
     <Button
         android:id="@+id/btnRegister"
@@ -96,7 +106,8 @@
         android:text="Đăng ký"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
-        android:textColor="@color/textColor"/>
+        android:textColorHint="#325535"
+        android:textColor="#000000"/>
 
     <TextView
         android:id="@+id/textViewError"
