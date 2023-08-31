@@ -1,4 +1,4 @@
-package com.example.mylap.page.home;
+package com.example.mylap.page.listCourse;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +20,7 @@ import com.example.mylap.ViewModel.ViewModelMain;
 import com.example.mylap.api.ConfigApi;
 import com.example.mylap.models.Category;
 import com.example.mylap.models.Course;
+import com.example.mylap.page.listCourse.CustomViewHolder;
 import com.example.mylap.page.listCourse.ListCourse;
 import com.example.mylap.responsive.GetListCourse;
 import com.squareup.picasso.Picasso;
@@ -31,14 +32,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CustomAdapter extends RecyclerView.Adapter<CustomViewHolder> {
-    private List<Category> itemList;
+public class ListCourseAdapter extends RecyclerView.Adapter<CustomViewHolder> {
+    private List<Course> courseList;
     private ConfigApi configApi = new ConfigApi();
     private ViewModelMain viewModelMain;
     private Context activity;
 
-    public CustomAdapter(List<Category> itemList, FragmentActivity activity)  {
-        this.itemList = itemList;
+    public ListCourseAdapter(List<Course> courseList, FragmentActivity activity)  {
+        this.courseList = courseList ;
         this.viewModelMain = new ViewModelProvider(activity).get(ViewModelMain.class);
         this.activity = activity;
     }
@@ -52,27 +53,26 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
-        Category item = itemList.get(position);
+        Course item = courseList.get(position);
 
         Picasso.get().load(item.getAvatar()).into(holder.imageView);
-        holder.textName.setText(item.getName());
+        holder.textName.setText(item.getCourseName());
         holder.textDescription.setText(formatText(item.getDes()));
-        holder.buttonDoNow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Xử lý sự kiện khi nút "Làm ngay" được nhấn
-//                Log.d("TAG", "id category: " + item.getId());
-                Intent intent = new Intent(activity, ListCourse.class);
-                intent.putExtra("categoryId", item.getId());
-                intent.putExtra("categoryName", item.getName());
-                activity.startActivity(intent);
-            }
-        });
+//        holder.buttonDoNow.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Xử lý sự kiện khi nút "Làm ngay" được nhấn
+////                Log.d("TAG", "id category: " + item.getId());
+//                Intent intent = new Intent(activity, ListCourse.class);
+//                intent.putExtra("categoryId", item.getId());
+//                activity.startActivity(intent);
+//            }
+//        });
     }
 
     @Override
     public int getItemCount() {
-        return itemList.size();
+        return courseList.size();
     }
 
     private String formatText(String text) {

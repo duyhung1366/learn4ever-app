@@ -42,7 +42,7 @@
                     android:id="@+id/textHeader"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="CÁC KHÓA HỌC"
+                    android:text="Các khóa học"
                     android:textColor="#008080	"
                     android:textStyle="bold"/>
 
