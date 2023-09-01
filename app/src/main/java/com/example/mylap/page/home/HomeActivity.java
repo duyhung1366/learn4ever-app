@@ -17,6 +17,7 @@ import com.example.mylap.R;
 import com.example.mylap.api.ConfigApi;
 import com.example.mylap.models.Category;
 import com.example.mylap.page.login.LoginActivity;
+import com.example.mylap.page.login.RegisterActivity;
 import com.example.mylap.responsive.GetCategory;
 
 import java.util.ArrayList;
@@ -109,6 +110,16 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button btn_register = findViewById(R.id.btnRegister);
+
+        btn_register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, RegisterActivity.class);
                 startActivity(intent);
             }
         });

@@ -20,6 +20,10 @@
         <activity
             android:name=".page.login.LoginActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".page.login.RegisterActivity"
+            android:exported="false" />
         <activity
             android:name=".page.home.HomeActivity"
             android:exported="true">
