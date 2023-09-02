@@ -14,7 +14,7 @@
     <EditText
         android:id="@+id/etUsername"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="48dp"
         android:layout_margin="16dp"
         android:hint="Tên Đăng Nhập"
         android:textColorHint="#325535"
@@ -24,7 +24,7 @@
     <EditText
         android:id="@+id/etEmail"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="48dp"
         android:layout_margin="16dp"
         android:hint="Email"
         android:textColorHint="#325535"

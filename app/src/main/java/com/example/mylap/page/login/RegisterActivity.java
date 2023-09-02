@@ -74,31 +74,48 @@ public class RegisterActivity extends AppCompatActivity {
                         gender = selectedGenderRadioButton.getTag().toString();
                     }
 
+                    if (!isValidEmail(email)) {
+                        Toast.makeText(getApplicationContext(), "Email Không Hợp Lệ", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (!isValidphoneNumber(phoneNumber)) {
+                        Toast.makeText(getApplicationContext(), "SĐT Không Hợp Lệ", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
                     if(username.equals("")) {
+                        Toast.makeText(getApplicationContext(), "Mời Nhập Tên Đăng Nhập", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     if(email.equals("")) {
+                        Toast.makeText(getApplicationContext(), "Mời Nhập Email", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     if(user.equals("")){
+                        Toast.makeText(getApplicationContext(), "Mời Nhập Tên Người Dùng", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     if(phoneNumber.equals("")) {
+                        Toast.makeText(getApplicationContext(), "Mời Nhập Số Điện Thoại", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     if(gender.equals("")) {
+                        Toast.makeText(getApplicationContext(), "Mời Chọn Giới Tính", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     if(password.equals("")) {
+                        Toast.makeText(getApplicationContext(), "Mời Nhập Mật Khẩu", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     if(repassword.equals("")) {
+                        Toast.makeText(getApplicationContext(), "Mời Nhập Lại Mật Khẩu", Toast.LENGTH_SHORT).show();
                         return;
                     }
                     if (!password.equals(repassword)) {
                         textViewError.setText("Mật khẩu không khớp");
                         return;
                     }
+
 
                     // Kiểm tra dữ liệu và xử lý đăng ký tại đây
 //                    Log.d("TAG", "username : " + username + " pwd: " + password + " email : " + email  + "use ; " + user + " number : " + phoneNumber + " gender : " + gender);
@@ -145,6 +162,18 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             });
         }
+
+    private boolean isValidphoneNumber(String phoneNumber) {
+        String phoneNumberPattern = "[0-9]";
+        return phoneNumber.matches(phoneNumberPattern);
+    }
+
+
+    // Hàm kiểm tra email có đúng định dạng hay không
+    private boolean isValidEmail(String email) {
+        String emailPattern = "[a-zA-Z0-9._-]+\\@gmail.com+";
+        return email.matches(emailPattern);
+    }
     }
 
 
