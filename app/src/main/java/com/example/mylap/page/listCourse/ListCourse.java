@@ -38,11 +38,9 @@ public class ListCourse extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_course);
+        TextView textView = findViewById(R.id.textHeader);
 
-        configApi = new ConfigApi();
         courseList = new ArrayList<>();
-
-
 
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
@@ -52,20 +50,15 @@ public class ListCourse extends AppCompatActivity {
 
         Intent intent = getIntent();
         String categoryId = intent.getStringExtra("categoryId");
-        TextView textView = findViewById(R.id.textHeader);
-        String receivedData = intent.getStringExtra("categoryName");
-        String existingText = textView.getText().toString();
-        String combinedText = existingText + " " + receivedData;
-        textView.setText(combinedText);
-        Log.d("TAG", "categoryId: " + categoryId);
+        String categoryName = intent.getStringExtra("categoryName");
+
+        textView.setText(textView.getText().toString() + " " + categoryName);
 
         configApi.getApiService().getListCourseByCategoryId(categoryId).enqueue(new Callback<GetListCourse>() {
             @Override
             public void onResponse(Call<GetListCourse> call, Response<GetListCourse> response) {
                 if (response.isSuccessful()) {
                     GetListCourse data = response.body();
-//                    Log.d("TAG", "Dữ liệu của bạn: " + data.getData().get(0).getName());
-                    // Cập nhật dữ liệu vào Adapter và cập nhật ListView
                     for (int i = 0; i < data.getData().size(); i++) {
                         courseList.add(data.getData().get(i));
                     }
@@ -82,7 +75,6 @@ public class ListCourse extends AppCompatActivity {
                 Log.d("TAG", "error api:  " + t);
             }
         });
-
 
     }
 }
