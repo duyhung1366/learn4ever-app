@@ -1,6 +1,7 @@
 package com.example.mylap.page.home;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,6 +32,7 @@ public class HomeActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private CustomAdapter adapter;
     private List<Category> categoryList;
+    private Context activity;
 
     @Override
     protected void onCreate(Bundle savedInstantState) {
