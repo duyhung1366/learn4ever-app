@@ -1,38 +1,26 @@
-package com.example.mylap.page.login;
+package com.example.mylap.page.auth;
 
 import android.app.ProgressDialog;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
-import android.content.res.AssetManager;
-import android.content.res.Resources;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 
 import com.example.mylap.R;
+import com.example.mylap.ViewModel.ViewModelMain;
 import com.example.mylap.api.ConfigApi;
 import com.example.mylap.page.home.HomeActivity;
-import com.example.mylap.responsive.GetCategory;
 import com.example.mylap.responsive.LoginRes;
 import com.example.mylap.utils.ProgressDialogUtils;
 import com.example.mylap.utils.SharedPreferencesUtils;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,12 +32,13 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnLogin;
     ConfigApi configApi = new ConfigApi();
     private Context loginContext;
-
+    private ViewModelMain viewModelMain;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_page);
         this.loginContext = this;
+        viewModelMain = new ViewModelProvider(this).get(ViewModelMain.class);
 
         // Ánh xạ các thành phần trong giao diện
         etUsername = findViewById(R.id.etUsername);
@@ -78,6 +67,9 @@ public class LoginActivity extends AppCompatActivity {
                             } else if(!token.equals("")) {
                                 // Lưu giá trị token vào SharedPreferences
                                 SharedPreferencesUtils.saveStringToSharedPreferences(loginContext,"token", token);
+
+                                // change value isLogin
+//                                viewModelMain.setIsLogin(true);
 
                                 Toast.makeText(getApplicationContext(), "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(loginContext, HomeActivity.class);

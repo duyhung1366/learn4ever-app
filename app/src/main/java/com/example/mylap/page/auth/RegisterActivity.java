@@ -1,6 +1,8 @@
-package com.example.mylap.page.login;
+package com.example.mylap.page.auth;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -17,6 +19,7 @@ import android.widget.Toast;
 
 
 import com.example.mylap.R;
+import com.example.mylap.ViewModel.ViewModelMain;
 import com.example.mylap.api.ConfigApi;
 import com.example.mylap.page.home.HomeActivity;
 import com.example.mylap.responsive.LoginRes;
@@ -40,12 +43,15 @@ public class RegisterActivity extends AppCompatActivity {
     private Button btnRegister;
     ConfigApi configApi = new ConfigApi();
     private Context registerContext;
+    private ViewModelMain viewModelMain;
 
     @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_register);
             this.registerContext = this;
+
+            viewModelMain = new ViewModelProvider(this).get(ViewModelMain.class);
 
             etUsername = findViewById(R.id.etUsername);
             etEmail = findViewById(R.id.etEmail);
@@ -110,11 +116,15 @@ public class RegisterActivity extends AppCompatActivity {
                             if (response.isSuccessful()) {
                                 int status = response.body().getStatus();
                                 if(status == 0) {
-                                    Toast.makeText(getApplicationContext(), "Đăng kí thành công", Toast.LENGTH_SHORT).show();
                                     String token = response.body().getToken();
 
                                     if(!token.equals("")) {
                                         SharedPreferencesUtils.saveStringToSharedPreferences(registerContext,"token", token);
+
+//                                        viewModelMain.setIsLogin(true);
+
+                                        Toast.makeText(getApplicationContext(), "Đăng kí thành công", Toast.LENGTH_SHORT).show();
+
                                         Intent intent = new Intent(registerContext, HomeActivity.class);
                                         registerContext.startActivity(intent);
                                     } else {

@@ -18,11 +18,11 @@
             android:name=".page.listCourse.ListCourse"
             android:exported="false" />
         <activity
-            android:name=".page.login.LoginActivity"
+            android:name=".page.auth.LoginActivity"
             android:exported="false" />
 
         <activity
-            android:name=".page.login.RegisterActivity"
+            android:name=".page.auth.RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".page.home.HomeActivity"

@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mylap.R;
 import com.example.mylap.api.ConfigApi;
 import com.example.mylap.models.Category;
-import com.example.mylap.page.login.LoginActivity;
-import com.example.mylap.page.login.RegisterActivity;
+import com.example.mylap.page.auth.LoginActivity;
+import com.example.mylap.page.auth.RegisterActivity;
 import com.example.mylap.responsive.GetCategory;
 
 import java.util.ArrayList;
