@@ -4,42 +4,27 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.text.Html;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mylap.R;
-import com.example.mylap.ViewModel.ViewModelMain;
-import com.example.mylap.api.ConfigApi;
 import com.example.mylap.models.Category;
-import com.example.mylap.models.Course;
 import com.example.mylap.page.listCourse.ListCourse;
-import com.example.mylap.responsive.GetListCourse;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomViewHolder> {
     private List<Category> itemList;
-    private ConfigApi configApi = new ConfigApi();
-    private ViewModelMain viewModelMain;
     private Context activity;
 
-    public CustomAdapter(List<Category> itemList, FragmentActivity activity)  {
+    public CustomAdapter(List<Category> itemList, FragmentActivity activity) {
         this.itemList = itemList;
-        this.viewModelMain = new ViewModelProvider(activity).get(ViewModelMain.class);
         this.activity = activity;
     }
 

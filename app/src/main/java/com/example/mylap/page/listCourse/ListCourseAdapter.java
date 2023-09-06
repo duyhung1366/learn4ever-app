@@ -1,7 +1,6 @@
 package com.example.mylap.page.listCourse;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
 import android.text.Html;
 import android.util.Log;
@@ -11,35 +10,21 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mylap.R;
-import com.example.mylap.ViewModel.ViewModelMain;
-import com.example.mylap.api.ConfigApi;
-import com.example.mylap.models.Category;
 import com.example.mylap.models.Course;
-import com.example.mylap.page.listCourse.CustomViewHolder;
-import com.example.mylap.page.listCourse.ListCourse;
-import com.example.mylap.responsive.GetListCourse;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Response;
 
 public class ListCourseAdapter extends RecyclerView.Adapter<CustomViewHolder> {
     private List<Course> courseList;
-    private ViewModelMain viewModelMain;
     private Context activity;
 
-    public ListCourseAdapter(List<Course> courseList, FragmentActivity activity)  {
-        this.courseList = courseList ;
-        this.viewModelMain = new ViewModelProvider(activity).get(ViewModelMain.class);
+    public ListCourseAdapter(List<Course> courseList, FragmentActivity activity) {
+        this.courseList = courseList;
         this.activity = activity;
     }
 

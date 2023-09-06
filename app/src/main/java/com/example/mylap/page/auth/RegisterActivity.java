@@ -19,10 +19,10 @@ import android.widget.Toast;
 
 
 import com.example.mylap.R;
-import com.example.mylap.ViewModel.ViewModelMain;
 import com.example.mylap.api.ConfigApi;
 import com.example.mylap.page.home.HomeActivity;
 import com.example.mylap.responsive.LoginRes;
+import com.example.mylap.singleton.AuthManager;
 import com.example.mylap.utils.ProgressDialogUtils;
 import com.example.mylap.utils.SharedPreferencesUtils;
 
@@ -43,15 +43,12 @@ public class RegisterActivity extends AppCompatActivity {
     private Button btnRegister;
     ConfigApi configApi = new ConfigApi();
     private Context registerContext;
-    private ViewModelMain viewModelMain;
 
     @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_register);
             this.registerContext = this;
-
-            viewModelMain = new ViewModelProvider(this).get(ViewModelMain.class);
 
             etUsername = findViewById(R.id.etUsername);
             etEmail = findViewById(R.id.etEmail);
@@ -137,8 +134,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                                     if(!token.equals("")) {
                                         SharedPreferencesUtils.saveStringToSharedPreferences(registerContext,"token", token);
-
-//                                        viewModelMain.setIsLogin(true);
+                                        AuthManager.getInstance().setLoginStatus(true);
 
                                         Toast.makeText(getApplicationContext(), "Đăng kí thành công", Toast.LENGTH_SHORT).show();
 

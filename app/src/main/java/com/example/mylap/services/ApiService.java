@@ -48,5 +48,9 @@ public interface ApiService {
             @Field("gender") int gender
     );
 
+    @FormUrlEncoded
+    @POST("/api-mobile/session")
+    Call<Void> session(@Field("token") String token);
+
     // Các phương thức API khác...
 }

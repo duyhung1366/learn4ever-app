@@ -15,10 +15,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 
 import com.example.mylap.R;
-import com.example.mylap.ViewModel.ViewModelMain;
 import com.example.mylap.api.ConfigApi;
 import com.example.mylap.page.home.HomeActivity;
 import com.example.mylap.responsive.LoginRes;
+import com.example.mylap.singleton.AuthManager;
 import com.example.mylap.utils.ProgressDialogUtils;
 import com.example.mylap.utils.SharedPreferencesUtils;
 
@@ -32,13 +32,12 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnLogin;
     ConfigApi configApi = new ConfigApi();
     private Context loginContext;
-    private ViewModelMain viewModelMain;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_page);
         this.loginContext = this;
-        viewModelMain = new ViewModelProvider(this).get(ViewModelMain.class);
 
         // Ánh xạ các thành phần trong giao diện
         etUsername = findViewById(R.id.etUsername);
@@ -69,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
                                 SharedPreferencesUtils.saveStringToSharedPreferences(loginContext,"token", token);
 
                                 // change value isLogin
-//                                viewModelMain.setIsLogin(true);
+                                AuthManager.getInstance().setLoginStatus(true);
 
                                 Toast.makeText(getApplicationContext(), "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(loginContext, HomeActivity.class);

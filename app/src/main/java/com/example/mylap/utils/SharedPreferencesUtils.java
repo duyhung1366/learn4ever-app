@@ -10,6 +10,13 @@ public class SharedPreferencesUtils {
         editor.apply();
     }
 
+    public static void removeStringToSharedPreferences(Context context, String key) {
+        SharedPreferences preferences = context.getSharedPreferences("my_prefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.remove(key);
+        editor.apply();
+    }
+
     public static String getStringToSharedPreferences(Context context, String key) {
         SharedPreferences preferences = context.getSharedPreferences("my_prefs", Context.MODE_PRIVATE);
         String savedValue = preferences.getString(key, "");
