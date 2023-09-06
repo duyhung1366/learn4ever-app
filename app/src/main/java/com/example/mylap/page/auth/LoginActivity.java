@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etUsername;
     private EditText etPassword;
     private Button btnLogin;
-    private Button btnRegister1;
+    private Button btnReRegister;
     ConfigApi configApi = new ConfigApi();
     private Context loginContext;
 
@@ -40,10 +40,13 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.login_page);
         this.loginContext = this;
 
+        btnReRegister = findViewById(R.id.btnReRegister);
+
         // Ánh xạ các thành phần trong giao diện
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
+        btnReRegister = findViewById(R.id.btnReRegister);
 
 
         // Đăng ký bắt sự kiện khi nút đăng nhập được nhấn
@@ -95,17 +98,17 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 });
 
+
             }
 
-
         });
-        btnRegister1.setOnClickListener(new View.OnClickListener() {
+        btnReRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Chuyển sang trang đăng nhập
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
                 startActivity(intent);
             }
         });
+
     }
 }

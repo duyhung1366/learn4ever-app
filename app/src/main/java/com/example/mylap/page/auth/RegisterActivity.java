@@ -40,7 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText etRePassword;
     private RadioGroup radioGroupGender;
     private Button btnRegister;
-    private Button btnLogin1;
+    private Button btnReLogin;
     ConfigApi configApi = new ConfigApi();
     private Context registerContext;
 
@@ -50,6 +50,7 @@ public class RegisterActivity extends AppCompatActivity {
             setContentView(R.layout.activity_register);
             this.registerContext = this;
 
+
             etUsername = findViewById(R.id.etUsername);
             etEmail = findViewById(R.id.etEmail);
             etUser = findViewById(R.id.etUser);
@@ -58,6 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
             etRePassword = findViewById(R.id.etRePassword);
             radioGroupGender = findViewById(R.id.radioGioiTinh);
             btnRegister = findViewById(R.id.btnRegister);
+            btnReLogin = findViewById(R.id.btnReLogin);
 
             btnRegister.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -166,7 +168,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 }
             });
-        btnLogin1.setOnClickListener(new View.OnClickListener() {
+        btnReLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);

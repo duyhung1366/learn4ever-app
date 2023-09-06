@@ -14,8 +14,8 @@
     <EditText
         android:id="@+id/etUsername"
         android:layout_width="match_parent"
-        android:layout_height="38dp"
-        android:layout_margin="16dp"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
         android:hint="Tên Đăng Nhập"
         android:textColorHint="#325535"
         android:textColor="#000000"/>
@@ -24,8 +24,8 @@
     <EditText
         android:id="@+id/etEmail"
         android:layout_width="match_parent"
-        android:layout_height="38dp"
-        android:layout_margin="16dp"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
         android:hint="Email"
         android:textColorHint="#325535"
         android:textColor="#000000"/>
@@ -33,8 +33,8 @@
     <EditText
         android:id="@+id/etUser"
         android:layout_width="match_parent"
-        android:layout_height="38dp"
-        android:layout_margin="16dp"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
         android:hint="Tên Người Dùng"
         android:textColorHint="#325535"
         android:textColor="#000000"/>
@@ -42,8 +42,8 @@
     <EditText
         android:id="@+id/etNumber"
         android:layout_width="match_parent"
-        android:layout_height="38dp"
-        android:layout_margin="16dp"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
         android:hint="Số Điện Thoại"
         android:textColorHint="#325535"
         android:textColor="#000000"/>
@@ -51,7 +51,7 @@
         android:id="@+id/etlayerGioiTinh"
         android:layout_width="match_parent"
         android:layout_height="18dp"
-        android:layout_margin="16dp"
+        android:layout_margin="10dp"
         android:hint="Mời Chọn Giới tính"
         android:textColorHint="#325535"
         android:textColor="#000000"/>
@@ -69,7 +69,7 @@
             android:id="@+id/radioButtonMale"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="10dp"
             android:text="Nam"
             android:tag="1"
             android:textColorHint="#325535"
@@ -79,7 +79,7 @@
             android:id="@+id/radioButtonFemale"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_margin="10dp"
             android:text="Nữ"
             android:tag="2"
             android:textColorHint="#325535"
@@ -90,8 +90,8 @@
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="match_parent"
-        android:layout_height="38dp"
-        android:layout_margin="16dp"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
         android:inputType="textPassword"
         android:hint="Mật khẩu"
         android:textColorHint="#325535"
@@ -100,8 +100,8 @@
     <EditText
         android:id="@+id/etRePassword"
         android:layout_width="match_parent"
-        android:layout_height="39dp"
-        android:layout_margin="16dp"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
         android:inputType="textPassword"
         android:hint="Nhập Lại Mật khẩu"
         android:textColorHint="#325535"
@@ -130,12 +130,12 @@
 
 
         <Button
-            android:id="@+id/btnLogin1"
+            android:id="@+id/btnReLogin"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:backgroundTint="@color/background"
-            android:text="Đăng nhập ngay"
+            android:text="Đăng nhập"
             android:textColor="@color/black" />
 
     </LinearLayout>
