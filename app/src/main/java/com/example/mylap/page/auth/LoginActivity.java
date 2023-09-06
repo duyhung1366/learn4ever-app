@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etUsername;
     private EditText etPassword;
     private Button btnLogin;
-    private Button btnRegister;
+    private Button btnRegister1;
     ConfigApi configApi = new ConfigApi();
     private Context loginContext;
 
@@ -99,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         });
-        btnRegister.setOnClickListener(new View.OnClickListener() {
+        btnRegister1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Chuyển sang trang đăng nhập

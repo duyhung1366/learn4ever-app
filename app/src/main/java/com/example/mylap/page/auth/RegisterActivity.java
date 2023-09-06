@@ -40,7 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText etRePassword;
     private RadioGroup radioGroupGender;
     private Button btnRegister;
-    private Button btnLogin;
+    private Button btnLogin1;
     ConfigApi configApi = new ConfigApi();
     private Context registerContext;
 
@@ -163,17 +163,19 @@ public class RegisterActivity extends AppCompatActivity {
                             Log.d("TAG", "error api:  " + t);
                         }
                     });
-                    btnLogin.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            // Chuyển sang trang đăng nhập
-                            startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-                        }
-                    });
 
                 }
             });
+        btnLogin1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
         }
+
+
 
     private boolean isValidphoneNumber(String phoneNumber) {
         String phoneNumberPattern = "[0-9]";
