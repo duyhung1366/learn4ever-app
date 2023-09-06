@@ -105,6 +105,7 @@ public class HomeActivity extends AppCompatActivity {
                     SharedPreferencesUtils.removeStringToSharedPreferences(activity, "token");
                     Intent intent = new Intent(activity, LoginActivity.class);
                     activity.startActivity(intent);
+                    finish();
                 }
             }
 
@@ -159,6 +160,7 @@ public class HomeActivity extends AppCompatActivity {
                 SharedPreferencesUtils.removeStringToSharedPreferences(activity, "token");
                 Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 

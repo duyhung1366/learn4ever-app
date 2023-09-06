@@ -8,13 +8,13 @@
 
     <ImageView
         android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_height="80dp"
         android:src="@drawable/logo" /> <!-- Thay thế ic_login_logo bằng đường dẫn hoặc tên tài nguyên hình ảnh logo -->
 
     <EditText
         android:id="@+id/etUsername"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="38dp"
         android:layout_margin="16dp"
         android:hint="Tên Đăng Nhập"
         android:textColorHint="#325535"
@@ -24,7 +24,7 @@
     <EditText
         android:id="@+id/etEmail"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="38dp"
         android:layout_margin="16dp"
         android:hint="Email"
         android:textColorHint="#325535"
@@ -33,7 +33,7 @@
     <EditText
         android:id="@+id/etUser"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="38dp"
         android:layout_margin="16dp"
         android:hint="Tên Người Dùng"
         android:textColorHint="#325535"
@@ -42,7 +42,7 @@
     <EditText
         android:id="@+id/etNumber"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="38dp"
         android:layout_margin="16dp"
         android:hint="Số Điện Thoại"
         android:textColorHint="#325535"
@@ -50,7 +50,7 @@
     <TextView
         android:id="@+id/etlayerGioiTinh"
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="18dp"
         android:layout_margin="16dp"
         android:hint="Mời Chọn Giới tính"
         android:textColorHint="#325535"
@@ -59,7 +59,7 @@
     <RadioGroup
         android:id="@+id/radioGioiTinh"
         android:layout_width="wrap_content"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:hint="Chọn Giới Tính"
         android:orientation="horizontal"
         android:textColorHint="#325535"
@@ -90,7 +90,7 @@
     <EditText
         android:id="@+id/etPassword"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="38dp"
         android:layout_margin="16dp"
         android:inputType="textPassword"
         android:hint="Mật khẩu"
@@ -100,7 +100,7 @@
     <EditText
         android:id="@+id/etRePassword"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="39dp"
         android:layout_margin="16dp"
         android:inputType="textPassword"
         android:hint="Nhập Lại Mật khẩu"
@@ -116,12 +116,18 @@
         android:layout_marginTop="16dp"
         android:textColorHint="#325535"
         android:textColor="#000000"/>
-
     <TextView
-        android:id="@+id/textViewError"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:textColor="#FF0000" />
+        android:text="Đã có tài khoản? "
+        android:textSize="16sp"/>
 
-    </LinearLayout>
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="39dp"
+        android:textColor="@color/black"
+        android:backgroundTint="@color/background"
+        android:text="Đăng nhập ngay" />
+
+</LinearLayout>

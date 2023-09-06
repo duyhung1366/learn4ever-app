@@ -39,8 +39,8 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText etPassword;
     private EditText etRePassword;
     private RadioGroup radioGroupGender;
-    private TextView textViewError;
     private Button btnRegister;
+    private Button btnLogin;
     ConfigApi configApi = new ConfigApi();
     private Context registerContext;
 
@@ -58,7 +58,6 @@ public class RegisterActivity extends AppCompatActivity {
             etRePassword = findViewById(R.id.etRePassword);
             radioGroupGender = findViewById(R.id.radioGioiTinh);
             btnRegister = findViewById(R.id.btnRegister);
-            textViewError = findViewById(R.id.textViewError);
 
             btnRegister.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -115,7 +114,7 @@ public class RegisterActivity extends AppCompatActivity {
                         return;
                     }
                     if (!password.equals(repassword)) {
-                        textViewError.setText("Mật khẩu không khớp");
+                        Toast.makeText(getApplicationContext(),"Mật khẩu không khớp", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
@@ -162,6 +161,13 @@ public class RegisterActivity extends AppCompatActivity {
                             progressDialog.dismiss();
                             Toast.makeText(getApplicationContext(), "server bị lỗi", Toast.LENGTH_SHORT).show();
                             Log.d("TAG", "error api:  " + t);
+                        }
+                    });
+                    btnLogin.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            // Chuyển sang trang đăng nhập
+                            startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                         }
                     });
 

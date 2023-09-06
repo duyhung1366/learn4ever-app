@@ -16,8 +16,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:hint="Tên đăng nhập"
-        android:textColor="@color/textColor"/>
+        android:hint="Tên Đăng Nhập"
+        android:textColorHint="#325535"
+        android:textColor="#000000"/>
 
     <EditText
         android:id="@+id/etPassword"
@@ -26,7 +27,8 @@
         android:layout_margin="16dp"
         android:inputType="textPassword"
         android:hint="Mật khẩu"
-        android:textColor="@color/textColor"/>
+        android:textColorHint="#325535"
+        android:textColor="#000000"/>
 
     <Button
         android:id="@+id/btnLogin"
