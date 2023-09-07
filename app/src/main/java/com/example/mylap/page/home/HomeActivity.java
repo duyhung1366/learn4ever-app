@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +21,7 @@ import com.example.mylap.api.ConfigApi;
 import com.example.mylap.models.Category;
 import com.example.mylap.page.auth.LoginActivity;
 import com.example.mylap.page.auth.RegisterActivity;
+import com.example.mylap.page.userInfo.UserInfo;
 import com.example.mylap.responsive.GetCategory;
 import com.example.mylap.singleton.AuthManager;
 import com.example.mylap.utils.ProgressDialogUtils;
@@ -41,6 +43,7 @@ public class HomeActivity extends AppCompatActivity {
     Button btn_Login;
     Button btn_register;
     Button btn_Logout;
+    ImageView showUserinfo;
 
     @Override
     protected void onCreate(Bundle savedInstantState) {
@@ -52,6 +55,13 @@ public class HomeActivity extends AppCompatActivity {
         btn_Login = findViewById(R.id.btnLogin);
         btn_register = findViewById(R.id.btnRegister);
         btn_Logout = findViewById(R.id.btnLogout);
+        showUserinfo = findViewById(R.id.userinfo);
+
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+
+        adapter = new CustomAdapter(categoryList, this);
+        recyclerView.setAdapter(adapter);
 
         String token = SharedPreferencesUtils.getStringToSharedPreferences(this, "token");
 
@@ -68,6 +78,7 @@ public class HomeActivity extends AppCompatActivity {
                     btn_Login.setVisibility(View.GONE);
                     btn_register.setVisibility(View.GONE);
                     btn_Logout.setVisibility(View.VISIBLE);
+                    showUserinfo.setVisibility(View.VISIBLE);
                     // api get category
                     ProgressDialog progressDialog = new ProgressDialogUtils().createProgressDialog(activity);
 
@@ -130,13 +141,7 @@ public class HomeActivity extends AppCompatActivity {
 //
 //                }
 //            }
-//        });
-
-        recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-
-        adapter = new CustomAdapter(categoryList, this);
-        recyclerView.setAdapter(adapter);
+//        });\
 
         btn_Login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,6 +166,14 @@ public class HomeActivity extends AppCompatActivity {
                 Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        showUserinfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, UserInfo.class);
+                startActivity(intent);
             }
         });
 

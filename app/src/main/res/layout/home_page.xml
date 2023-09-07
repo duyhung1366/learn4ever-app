@@ -6,16 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".page.home.HomeActivity">
 
-    <androidx.drawerlayout.widget.DrawerLayout
-        android:id="@+id/drawer_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="359dp">
+<!--    <androidx.drawerlayout.widget.DrawerLayout-->
+<!--        android:id="@+id/drawer_layout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        tools:layout_editor_absoluteX="16dp"-->
+<!--        tools:layout_editor_absoluteY="359dp">-->
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:background="@color/background"
             >
@@ -72,6 +72,15 @@
                     android:visibility="gone"
                     />
 
+                <ImageView
+                    android:id="@+id/userinfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|end"
+                    android:layout_marginStart="50dp"
+                    android:visibility="gone"
+                    android:src="@drawable/custom_icon_user2" />
+
             </LinearLayout>
 <!--            <Button-->
 <!--                android:id="@+id/btnToggleDrawer"-->
@@ -87,6 +96,6 @@
 
         </LinearLayout>
 
-    </androidx.drawerlayout.widget.DrawerLayout>
+<!--    </androidx.drawerlayout.widget.DrawerLayout>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
