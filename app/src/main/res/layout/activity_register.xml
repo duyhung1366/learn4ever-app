@@ -16,8 +16,6 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_margin="10dp"
-        android:drawableLeft="@drawable/ic_user"
-        android:drawablePadding="6dp"
         android:hint="Tên Đăng Nhập"
         android:textColorHint="#325535"
         android:textColor="#000000"/>
@@ -28,8 +26,6 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_margin="10dp"
-        android:drawableLeft="@drawable/ic_email"
-        android:drawablePadding="6dp"
         android:hint="Email"
         android:textColorHint="#325535"
         android:textColor="#000000"/>
@@ -39,9 +35,18 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_margin="10dp"
-        android:drawableLeft="@drawable/ic_username"
-        android:drawablePadding="6dp"
         android:hint="Tên Người Dùng"
+        android:textColorHint="#325535"
+        android:textColor="#000000"/>
+
+
+
+    <EditText
+        android:id="@+id/etNumber"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:hint="Số Điện Thoại"
         android:textColorHint="#325535"
         android:textColor="#000000"/>
 
@@ -50,20 +55,9 @@
         android:layout_width="match_parent"
         android:layout_height="18dp"
         android:layout_margin="10dp"
-        android:hint="Mời Chọn Giới tính"
+        android:hint="Giới tính"
         android:textColor="#000000"
         android:textColorHint="#325535" />
-
-    <EditText
-        android:id="@+id/etNumber"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_margin="10dp"
-        android:drawableLeft="@drawable/ic_sdt"
-        android:drawablePadding="6dp"
-        android:hint="Số Điện Thoại"
-        android:textColorHint="#325535"
-        android:textColor="#000000"/>
 
     <RadioGroup
         android:id="@+id/radioGioiTinh"
@@ -101,8 +95,6 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_margin="10dp"
-        android:drawableLeft="@drawable/ic_password"
-        android:drawablePadding="6dp"
         android:inputType="textPassword"
         android:hint="Mật khẩu"
         android:textColorHint="#325535"
@@ -113,8 +105,6 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_margin="10dp"
-        android:drawableLeft="@drawable/ic_password"
-        android:drawablePadding="6dp"
         android:inputType="textPassword"
         android:hint="Nhập Lại Mật khẩu"
         android:textColorHint="#325535"
