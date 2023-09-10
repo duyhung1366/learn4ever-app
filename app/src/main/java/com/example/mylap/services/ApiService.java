@@ -2,6 +2,7 @@ package com.example.mylap.services;
 
 import com.example.mylap.models.Category;
 import com.example.mylap.responsive.CountLearnRes;
+import com.example.mylap.responsive.CourseDetailRes;
 import com.example.mylap.responsive.GetCategory;
 import com.example.mylap.responsive.GetListCourse;
 import com.example.mylap.responsive.LoginRes;
@@ -51,6 +52,10 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("/api-mobile/session")
     Call<Void> session(@Field("token") String token);
+
+    @FormUrlEncoded
+    @POST("/api-mobile/get-course-by-id")
+    Call<CourseDetailRes> getCourseById(@Field("courseId") String courseId);
 
     // Các phương thức API khác...
 }

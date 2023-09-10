@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.mylap.R;
 import com.example.mylap.models.Category;
 import com.example.mylap.page.listCourse.ListCourse;
+import com.example.mylap.utils.Format;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -41,7 +42,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomViewHolder> {
 
         Picasso.get().load(item.getAvatar()).into(holder.imageView);
         holder.textName.setText(item.getName());
-        holder.textDescription.setText(formatText(item.getDes()));
+        holder.textDescription.setText(Format.formatText(item.getDes()));
         holder.buttonDoNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,16 +59,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomViewHolder> {
     @Override
     public int getItemCount() {
         return itemList.size();
-    }
-
-    private String formatText(String text) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            CharSequence formattedText = Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY);
-            return formattedText.toString();
-        } else {
-            CharSequence formattedText = Html.fromHtml(text);
-            return formattedText.toString();
-        }
     }
 }
 

@@ -2,6 +2,7 @@ package com.example.mylap.models;
 
 public class Course {
     private String _id;
+    private String id;
     private String courseName;
     private String avatar;
     private String des;
@@ -12,7 +13,7 @@ public class Course {
     public Course() {
     }
 
-    public Course(String _id, String courseName, String avatar, String des, String shortDes, String slug, int status) {
+    public Course(String id, String _id, String courseName, String avatar, String des, String shortDes, String slug, int status) {
         this._id = _id;
         this.courseName = courseName;
         this.avatar = avatar;
@@ -20,6 +21,15 @@ public class Course {
         this.shortDes = shortDes;
         this.slug = slug;
         this.status = status;
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String get_id() {

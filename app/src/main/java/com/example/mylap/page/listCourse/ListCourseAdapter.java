@@ -1,6 +1,7 @@
 package com.example.mylap.page.listCourse;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.text.Html;
 import android.util.Log;
@@ -14,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mylap.R;
 import com.example.mylap.models.Course;
+import com.example.mylap.page.courseDetail.CourseDetail;
+import com.example.mylap.utils.Format;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -39,47 +42,24 @@ public class ListCourseAdapter extends RecyclerView.Adapter<CustomViewHolder> {
     public void onBindViewHolder(@NonNull CustomViewHolder holder, int position) {
         Course item = courseList.get(position);
 
-        Log.d("TAG", "image course: " + item.getAvatar());
-        Picasso.get().load(item.getAvatar()).into(holder.imageView, new Callback() {
+        Picasso.get().load(item.getAvatar()).into(holder.imageView);
+        holder.textName.setText(item.getCourseName());
+        holder.textDescription.setText(Format.formatText(item.getShortDes()));
+        holder.buttonDoNow.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onSuccess() {
-                // Ảnh tải thành công
-                Log.d("TAG", "onSuccess: ");
-            }
-
-            @Override
-            public void onError(Exception e) {
-                // Xử lý lỗi ở đây
-                Log.d("TAG", "onError: " + e);
+            public void onClick(View v) {
+                // Xử lý sự kiện khi nút "Làm ngay" được nhấn
+//                Log.d("TAG", "id category: " + item.getId());
+                Intent intent = new Intent(activity, CourseDetail.class);
+                intent.putExtra("courseId", item.getId());
+                activity.startActivity(intent);
             }
         });
-        holder.textName.setText(item.getCourseName());
-        holder.textDescription.setText(formatText(item.getShortDes()));
-//        holder.buttonDoNow.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // Xử lý sự kiện khi nút "Làm ngay" được nhấn
-////                Log.d("TAG", "id category: " + item.getId());
-//                Intent intent = new Intent(activity, ListCourse.class);
-//                intent.putExtra("categoryId", item.getId());
-//                activity.startActivity(intent);
-//            }
-//        });
     }
 
     @Override
     public int getItemCount() {
         return courseList.size();
-    }
-
-    private String formatText(String text) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            CharSequence formattedText = Html.fromHtml(text, Html.FROM_HTML_MODE_LEGACY);
-            return formattedText.toString();
-        } else {
-            CharSequence formattedText = Html.fromHtml(text);
-            return formattedText.toString();
-        }
     }
 }
 
