@@ -1,9 +1,13 @@
 package com.example.mylap.models.topic;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.ArrayList;
 
 public class Topic {
     private String _id;
+    private String id;
+    @SerializedName("name")
     private String name;
     private int status;
     private String idCourse;
@@ -21,8 +25,9 @@ public class Topic {
     private int createDate;
     private int updateDate;
 
-    public Topic(String _id, String name, int status, String idCourse, ArrayList<String> topicChild, ArrayList<Topic> topicChildData, String parentId, int type, int topicType, int timeExam, String video, ArrayList<TimePracticeInVideo> timePracticeInVideo, int numQuestion, String des, int index, int createDate, int updateDate) {
+    public Topic(String id,String _id, String name, int status, String idCourse, ArrayList<String> topicChild, ArrayList<Topic> topicChildData, String parentId, int type, int topicType, int timeExam, String video, ArrayList<TimePracticeInVideo> timePracticeInVideo, int numQuestion, String des, int index, int createDate, int updateDate) {
         this._id = _id;
+        this.id = id;
         this.name = name;
         this.status = status;
         this.idCourse = idCourse;
@@ -42,6 +47,14 @@ public class Topic {
     }
 
     public Topic() {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String get_id() {

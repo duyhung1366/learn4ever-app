@@ -5,6 +5,7 @@ import com.example.mylap.responsive.CountLearnRes;
 import com.example.mylap.responsive.CourseDetailRes;
 import com.example.mylap.responsive.GetCategory;
 import com.example.mylap.responsive.GetListCourse;
+import com.example.mylap.responsive.GetListTopicRes;
 import com.example.mylap.responsive.LoginRes;
 
 import java.util.List;
@@ -56,6 +57,9 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("/api-mobile/get-course-by-id")
     Call<CourseDetailRes> getCourseById(@Field("courseId") String courseId);
+
+    @POST("/api/topic/getTopicByCourse")
+    Call<GetListTopicRes> getTopicByCourse(@Query("courseId") String courseId, @Query("type") int type, @Query("status") int status);
 
     // Các phương thức API khác...
 }
