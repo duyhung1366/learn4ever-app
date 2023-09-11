@@ -36,6 +36,7 @@ public class CourseDetail extends AppCompatActivity {
     TextView shortDesCourse;
     ImageView imageCourse;
     Button btn_learn;
+    Course courseData = new Course();
 
     ConfigApi configApi = new ConfigApi();
 
@@ -70,7 +71,7 @@ public class CourseDetail extends AppCompatActivity {
                     public void onResponse(Call<CourseDetailRes> call, Response<CourseDetailRes> response) {
                         if (response.isSuccessful() && response.body().getStatus() == 0) {
                             Course dataCourse = response.body().getData();
-
+                            courseData = dataCourse;
                             titleCourse.setText(dataCourse.getCourseName());
 //                          desCourse.setText(Format.formatText(dataCourse.getDes()));
                             shortDesCourse.setText(dataCourse.getShortDes());
@@ -123,6 +124,7 @@ public class CourseDetail extends AppCompatActivity {
                 Intent intent = new Intent(CourseDetail.this, TopicLearn.class);
                 intent.putExtra("courseId", courseId);
                 intent.putExtra("type", 1);
+                intent.putExtra("courseName", courseData.getCourseName());
                 CourseDetail.this.startActivity(intent);
             }
         });

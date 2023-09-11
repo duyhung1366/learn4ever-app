@@ -22,8 +22,8 @@ public class Topic {
     private int numQuestion;
     private String des;
     private int index;
-    private int createDate;
-    private int updateDate;
+    private long createDate;
+    private long updateDate;
 
     public Topic(String id,String _id, String name, int status, String idCourse, ArrayList<String> topicChild, ArrayList<Topic> topicChildData, String parentId, int type, int topicType, int timeExam, String video, ArrayList<TimePracticeInVideo> timePracticeInVideo, int numQuestion, String des, int index, int createDate, int updateDate) {
         this._id = _id;
@@ -177,7 +177,7 @@ public class Topic {
         this.index = index;
     }
 
-    public int getCreateDate() {
+    public long getCreateDate() {
         return createDate;
     }
 
@@ -185,7 +185,7 @@ public class Topic {
         this.createDate = createDate;
     }
 
-    public int getUpdateDate() {
+    public long getUpdateDate() {
         return updateDate;
     }
 

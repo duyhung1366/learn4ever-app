@@ -4,16 +4,15 @@ import com.example.mylap.models.topic.Topic;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class GetListTopicRes {
     @SerializedName("data")
-    private List<Topic> data;
+    private ArrayList<Topic> data;
 
     @SerializedName("status")
     private int status;
 
-    public void setData(List<Topic> data) {
+    public void setData(ArrayList<Topic> data) {
         this.data = data;
     }
 
@@ -21,12 +20,12 @@ public class GetListTopicRes {
         this.status = status;
     }
 
-    public GetListTopicRes(List<Topic> data, int status) {
+    public GetListTopicRes(ArrayList<Topic> data, int status) {
         this.data = data;
         this.status = status;
     }
 
-    public List<Topic> getData() {
+    public ArrayList<Topic> getData() {
         return data;
     }
 

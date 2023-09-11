@@ -43,6 +43,7 @@ public class TopicLearn extends AppCompatActivity {
 
     ImageButton btn_open_drawer;
     DrawerLayout drawerLayout;
+    List<Topic> topicChilds = new ArrayList<Topic>();
 
     ConfigApi configApi = new ConfigApi();
 
@@ -54,6 +55,11 @@ public class TopicLearn extends AppCompatActivity {
         Intent intent = getIntent();
         String courseId = intent.getStringExtra("courseId");
         int type = intent.getIntExtra("type", 0);
+        String courseName = intent.getStringExtra("courseName");
+
+        if(type == 0 || courseId == null) {
+            return;
+        }
 
         //map element
         btn_open_drawer = findViewById(R.id.btn_open_drawer);
@@ -73,17 +79,41 @@ public class TopicLearn extends AppCompatActivity {
             @Override
             public void run() {
 
-                configApi.getApiService().getTopicByCourse("63ae88a2fe74a345583ff56e", 1, 1).enqueue(new Callback<GetListTopicRes>() {
+                configApi.getApiService().getTopicByCourse(courseId, type, 1).enqueue(new Callback<GetListTopicRes>() {
                     @Override
                     public void onResponse(Call<GetListTopicRes> call, Response<GetListTopicRes> response) {
                         progress.dismiss();
-                        Log.d("TAG", "status : " + response.body().getStatus() + "data : " + response.body().getData());
-//                        if(response.isSuccessful() && response.body().getStatus() == 0) {
-//                            ArrayList<Topic> topics = response.body().getData();
-//                            Log.d("TAG", "successfull: " + topics.get(0).getName());
-//                        } else {
-//                            Toast.makeText(getApplicationContext(), "server bị lỗi", Toast.LENGTH_SHORT).show();
-//                        }
+                        if(response.isSuccessful() && response.body().getStatus() == 0) {
+                            ArrayList<Topic> topics = response.body().getData();
+
+                            List<TypeGroupHeader> groupHeaders = new ArrayList<>();
+                            Map<String, List<TypeGroupHeader>> childData = new HashMap<>();
+
+                            for(int i = 0; i < topics.size(); i++) {
+                                Topic topic = topics.get(i);
+
+                                if(topic.getParentId() == null) {
+                                    groupHeaders.add(new TypeGroupHeader(topic.getId(),topic.getName()));
+
+                                    Log.d("TAG", "topic.getTopicChildData().size(): " + topic.getTopicChildData().size() + " - " + topic.getTopicChild() );
+                                        List<TypeGroupHeader> itemChild = new ArrayList<TypeGroupHeader>();
+                                    if(topic.getTopicChildData().size() > 0) {
+                                        for(int j = 0; j < topic.getTopicChildData().size(); j++) {
+                                            Topic topicChild = topic.getTopicChildData().get(j);
+                                            Log.d("TAG", "topicChild id: " + topicChild.getId() + " topicChild name : " + topicChild.getName());
+                                            topicChilds.add(topicChild);
+                                            itemChild.add(new TypeGroupHeader(topicChild.getId(), topicChild.getName()));
+                                        }
+                                    }
+                                    childData.put(topic.getId(), itemChild);
+                                }
+                            }
+
+                            updateMenu(courseName, groupHeaders, childData);
+
+                        } else {
+                            Toast.makeText(getApplicationContext(), "server bị lỗi", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
@@ -95,11 +125,9 @@ public class TopicLearn extends AppCompatActivity {
                 });
             }
         }).start();
-
-        updateMenu("Toán 1");
     }
 
-    private void updateMenu(String courseName) {
+    private void updateMenu(String courseName, List<TypeGroupHeader> groupHeaders, Map<String, List<TypeGroupHeader>> childData) {
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         ExpandableListView expandableListView = navigationView.findViewById(R.id.expandableListView);
@@ -108,22 +136,6 @@ public class TopicLearn extends AppCompatActivity {
 
         TextView headerTitle = headerView.findViewById(R.id.navHeaderTitle);
         headerTitle.setText("Danh sách khóa học " + courseName);
-
-        List<TypeGroupHeader> groupHeaders = new ArrayList<>();
-        Map<String, List<String>> childData = new HashMap<>();
-
-        groupHeaders.add(new TypeGroupHeader("idnhom1", "Nhóm 1 : Làm quen các số 1, 2, 3, 4, 5 Làm quen các số 1, 2, 3, 4, 5 Làm quen các số 1, 2, 3, 4, 5"));
-        groupHeaders.add(new TypeGroupHeader("idnhom2", "Nhóm 2"));
-
-        List<String> group1Items = new ArrayList<>();
-        group1Items.add("Mục 1.1");
-        group1Items.add("Mục 1.2");
-        childData.put("idnhom1", group1Items);
-
-        List<String> group2Items = new ArrayList<>();
-        group2Items.add("Mục 2.1");
-        group2Items.add("Mục 2.2");
-        childData.put("idnhom2", group2Items);
 
         CustomExpandableListAdapter adapter = new CustomExpandableListAdapter(this, groupHeaders, childData);
 

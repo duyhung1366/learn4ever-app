@@ -16,9 +16,9 @@ import java.util.Map;
 public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     private Context context;
     private List<TypeGroupHeader> groupHeaders;
-    private Map<String, List<String>> childData;
+    private Map<String, List<TypeGroupHeader>> childData;
 
-    public CustomExpandableListAdapter(Context context, List<TypeGroupHeader> groupHeaders, Map<String, List<String>> childData) {
+    public CustomExpandableListAdapter(Context context, List<TypeGroupHeader> groupHeaders, Map<String, List<TypeGroupHeader>> childData) {
         this.context = context;
         this.groupHeaders = groupHeaders;
         this.childData = childData;
@@ -92,7 +92,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
-        String childItem = (String) getChild(groupPosition, childPosition);
+        TypeGroupHeader childItem = (TypeGroupHeader) getChild(groupPosition, childPosition);
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -100,7 +100,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         }
 
         TextView childItemTextView = convertView.findViewById(R.id.childItemTextView);
-        childItemTextView.setText(childItem);
+        childItemTextView.setText(childItem.getValue());
         childItemTextView.setTextColor(context.getResources().getColor(android.R.color.black)); // Thiết lập màu cho child item
 
         return convertView;

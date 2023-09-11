@@ -58,8 +58,9 @@ public interface ApiService {
     @POST("/api-mobile/get-course-by-id")
     Call<CourseDetailRes> getCourseById(@Field("courseId") String courseId);
 
-    @POST("/api/topic/getTopicByCourse")
-    Call<GetListTopicRes> getTopicByCourse(@Query("courseId") String courseId, @Query("type") int type, @Query("status") int status);
+    @FormUrlEncoded
+    @POST("/api-mobile/get-list-topic-by-courseId")
+    Call<GetListTopicRes> getTopicByCourse(@Field("courseId") String courseId, @Field("type") int type, @Field("status") int status);
 
     // Các phương thức API khác...
 }
