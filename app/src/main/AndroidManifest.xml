@@ -26,6 +26,9 @@
             android:name=".page.auth.RegisterActivity"
             android:exported="false" />
         <activity
+            android:name=".page.userInfo.UserInfoActivity"
+            android:exported="false" />
+        <activity
             android:name=".page.home.HomeActivity"
             android:exported="true">
             <intent-filter>

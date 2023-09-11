@@ -20,6 +20,7 @@ import com.example.mylap.api.ConfigApi;
 import com.example.mylap.models.Category;
 import com.example.mylap.page.auth.LoginActivity;
 import com.example.mylap.page.auth.RegisterActivity;
+import com.example.mylap.page.userInfo.UserInfoActivity;
 import com.example.mylap.responsive.GetCategory;
 import com.example.mylap.singleton.AuthManager;
 import com.example.mylap.utils.ProgressDialogUtils;
@@ -41,6 +42,7 @@ public class HomeActivity extends AppCompatActivity {
     Button btn_Login;
     Button btn_register;
     Button btn_Logout;
+    Button btn_UserInfo;
 
     @Override
     protected void onCreate(Bundle savedInstantState) {
@@ -52,6 +54,7 @@ public class HomeActivity extends AppCompatActivity {
         btn_Login = findViewById(R.id.btnLogin);
         btn_register = findViewById(R.id.btnRegister);
         btn_Logout = findViewById(R.id.btnLogout);
+        btn_UserInfo = findViewById(R.id.btnUserInfo);
 
         String token = SharedPreferencesUtils.getStringToSharedPreferences(this, "token");
 
@@ -68,6 +71,7 @@ public class HomeActivity extends AppCompatActivity {
                     btn_Login.setVisibility(View.GONE);
                     btn_register.setVisibility(View.GONE);
                     btn_Logout.setVisibility(View.VISIBLE);
+                    btn_UserInfo.setVisibility(View.VISIBLE);
                     // api get category
                     ProgressDialog progressDialog = new ProgressDialogUtils().createProgressDialog(activity);
 
@@ -150,6 +154,14 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(HomeActivity.this, RegisterActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btn_UserInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, UserInfoActivity.class);
                 startActivity(intent);
             }
         });

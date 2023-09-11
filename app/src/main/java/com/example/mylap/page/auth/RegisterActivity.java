@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.example.mylap.R;
 import com.example.mylap.api.ConfigApi;
 import com.example.mylap.page.home.HomeActivity;
+import com.example.mylap.page.userInfo.UserInfoActivity;
 import com.example.mylap.responsive.LoginRes;
 import com.example.mylap.singleton.AuthManager;
 import com.example.mylap.utils.ProgressDialogUtils;
@@ -119,6 +120,14 @@ public class RegisterActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),"Mật khẩu không khớp", Toast.LENGTH_SHORT).show();
                         return;
                     }
+                    Intent intent = new Intent(RegisterActivity.this, UserInfoActivity.class);
+                    intent.putExtra("name", username);
+                    intent.putExtra("email", email);
+                    intent.putExtra("user", user);
+                    intent.putExtra("phone", phoneNumber);
+                    intent.putExtra("gender", gender);
+
+                    startActivity(intent);
 
 
                     // Kiểm tra dữ liệu và xử lý đăng ký tại đây
