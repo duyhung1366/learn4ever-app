@@ -4,6 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.mylap.R;
 import com.example.mylap.api.ConfigApi;
 import com.example.mylap.models.Course;
+import com.example.mylap.page.topicLearn.TopicLearn;
 import com.example.mylap.responsive.CountLearnRes;
 import com.example.mylap.responsive.CourseDetailRes;
 import com.example.mylap.utils.ProgressDialogUtils;
@@ -32,6 +35,7 @@ public class CourseDetail extends AppCompatActivity {
     TextView numExam;
     TextView shortDesCourse;
     ImageView imageCourse;
+    Button btn_learn;
 
     ConfigApi configApi = new ConfigApi();
 
@@ -50,6 +54,7 @@ public class CourseDetail extends AppCompatActivity {
         numExam = findViewById(R.id.numExam);
         shortDesCourse = findViewById(R.id.shortDesCourse);
         imageCourse = findViewById(R.id.imageCourse);
+        btn_learn = findViewById(R.id.btn_learn);
 
         AtomicInteger completedAPICalls = new AtomicInteger(0);
 
@@ -111,6 +116,14 @@ public class CourseDetail extends AppCompatActivity {
                 });
             }
         }).start();
+
+        btn_learn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CourseDetail.this, TopicLearn.class);
+                CourseDetail.this.startActivity(intent);
+            }
+        });
     }
 
     private void CheckCompletedCallApi(AtomicInteger count, ProgressDialog progressDialog) {
