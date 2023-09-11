@@ -39,15 +39,6 @@
         android:textColorHint="#325535"
         android:textColor="#000000"/>
 
-    <TextView
-        android:id="@+id/etlayerGioiTinh"
-        android:layout_width="match_parent"
-        android:layout_height="18dp"
-        android:layout_margin="10dp"
-        android:hint="Mời Chọn Giới tính"
-        android:textColor="#000000"
-        android:textColorHint="#325535" />
-
     <EditText
         android:id="@+id/etNumber"
         android:layout_width="match_parent"
@@ -56,6 +47,15 @@
         android:hint="Số Điện Thoại"
         android:textColorHint="#325535"
         android:textColor="#000000"/>
+
+    <TextView
+        android:id="@+id/etlayerGioiTinh"
+        android:layout_width="match_parent"
+        android:layout_height="18dp"
+        android:layout_margin="10dp"
+        android:hint="Mời Chọn Giới tính"
+        android:textColor="#000000"
+        android:textColorHint="#325535" />
 
     <RadioGroup
         android:id="@+id/radioGioiTinh"
