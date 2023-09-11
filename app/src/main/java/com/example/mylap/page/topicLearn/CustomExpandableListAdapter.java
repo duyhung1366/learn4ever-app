@@ -83,9 +83,9 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 //        groupHeaderTextView.setTextColor(context.getResources().getColor(android.R.color.black)); // Thiết lập màu cho group header
 
         if (isExpanded) {
-            groupIcon.setImageResource(R.drawable.custom_icon_course); // Đặt biểu tượng mở khi mục nhóm mở
+            groupIcon.setImageResource(R.drawable.expand_down_double); // Đặt biểu tượng mở khi mục nhóm mở
         } else {
-            groupIcon.setImageResource(R.drawable.custom_icon_exam); // Đặt biểu tượng đóng khi mục nhóm đóng
+            groupIcon.setImageResource(R.drawable.expand_right_double); // Đặt biểu tượng đóng khi mục nhóm đóng
         }
         return convertView;
     }
