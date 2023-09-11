@@ -26,6 +26,9 @@ import com.example.mylap.singleton.AuthManager;
 import com.example.mylap.utils.ProgressDialogUtils;
 import com.example.mylap.utils.SharedPreferencesUtils;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -181,8 +184,16 @@ public class RegisterActivity extends AppCompatActivity {
 
 
     private boolean isValidphoneNumber(String phoneNumber) {
-        String phoneNumberPattern = "[0-9]";
-        return phoneNumber.matches(phoneNumberPattern);
+        String phonePattern = "^(\\+\\d{1,3}[- ]?)?\\d{10}$";
+
+        // Tạo một đối tượng Pattern để biên dịch biểu thức chính quy
+        Pattern pattern = Pattern.compile(phonePattern);
+
+        // Tạo một đối tượng Matcher để so sánh chuỗi với biểu thức chính quy
+        Matcher matcher = pattern.matcher(phoneNumber);
+
+        // Kiểm tra xem chuỗi phù hợp với biểu thức chính quy hay không
+        return matcher.matches();
     }
 
 
