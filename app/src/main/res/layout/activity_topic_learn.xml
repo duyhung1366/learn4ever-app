@@ -5,41 +5,105 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center|top"
-        >
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/layout_video"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/background"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="213dp">
+
+                <VideoView
+                    android:id="@+id/videoView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <!-- Khung controller sẽ nằm bên trong VideoView -->
+                <FrameLayout
+                    android:id="@+id/mediaControllerContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="12dp">
+
+                <TextView
+                    android:id="@+id/topic_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textColorSecondary"
+                    android:textStyle="bold"
+                    android:textSize="24dp"
+                    android:text="Làm quen các số 1, 2, 3, 4, 5" />
+
+                <TextView
+                    android:id="@+id/topic_update_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:textSize="12dp"
+                    android:textStyle="italic"
+                    android:layout_marginTop="24dp"
+                    android:text="Cập nhật ngày 5 tháng 6 năm 2023" />
+
+                <TextView
+                    android:id="@+id/topic_des"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:layout_marginTop="12dp"
+                    android:textSize="16dp"
+                    android:lineSpacingExtra="4dp"
+                    android:letterSpacing="0.03"
+                    android:text="Trong toán học, các số tự nhiên được sử dụng để đếm và sắp xếp thứ tự . Đôi khi, các số tự nhiên có thể xuất hiện dưới dạng một bộ mã thuận tiện (nhãn hoặc tên), nghĩa là, như những gì các nhà ngôn ngữ học gọi là số danh , loại bỏ nhiều hoặc tất cả các thuộc tính của một số theo nghĩa toán học. Tập hợp các số tự nhiên thường được kí hiệu bằng kí hiệu N." />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <ImageButton
             android:id="@+id/btn_open_drawer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_dehaze"
             android:background="#000"
-            />
-    </LinearLayout>
+            android:src="@drawable/ic_dehaze" />
 
+    </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:background="@color/background"
         app:headerLayout="@layout/nav_header_main"
-        app:menu="@menu/menu_topic_course"
-        android:background="@color/background">
+        app:menu="@menu/menu_topic_course">
 
         <ExpandableListView
             android:id="@+id/expandableListView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:groupIndicator="@null"
+            android:layout_gravity="start"
             android:layout_marginTop="160dp"
-            android:layout_gravity="start"/>
+            android:groupIndicator="@null" />
     </com.google.android.material.navigation.NavigationView>
 
 </androidx.drawerlayout.widget.DrawerLayout>

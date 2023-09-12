@@ -12,6 +12,17 @@ public class GetListTopicRes {
     @SerializedName("status")
     private int status;
 
+    @SerializedName("topicChildData")
+    private ArrayList<Topic> topicChildData;
+
+    public ArrayList<Topic> getTopicChildData() {
+        return topicChildData;
+    }
+
+    public void setTopicChildData(ArrayList<Topic> topicChildData) {
+        this.topicChildData = topicChildData;
+    }
+
     public void setData(ArrayList<Topic> data) {
         this.data = data;
     }

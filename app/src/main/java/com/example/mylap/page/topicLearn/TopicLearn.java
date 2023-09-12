@@ -6,6 +6,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
+import android.opengl.Matrix;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -15,10 +17,13 @@ import android.view.SubMenu;
 import android.view.View;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.MediaController;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.example.mylap.R;
 import com.example.mylap.api.ConfigApi;
@@ -39,11 +44,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TopicLearn extends AppCompatActivity {
+public class TopicLearn extends AppCompatActivity implements MediaControllerListener {
 
     ImageButton btn_open_drawer;
     DrawerLayout drawerLayout;
     List<Topic> topicChilds = new ArrayList<Topic>();
+    private VideoView videoView;
+    private CustomMediaController mediaController;
+    private boolean isRotated = false;
 
     ConfigApi configApi = new ConfigApi();
 
@@ -51,6 +59,23 @@ public class TopicLearn extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_topic_learn);
+
+        videoView = findViewById(R.id.videoView);
+        mediaController = new CustomMediaController(this, this);
+        FrameLayout mediaControllerContainer = findViewById(R.id.mediaControllerContainer);
+
+        String videoUrl = "http://res.cloudinary.com/dxp3jz1fc/video/upload/v1675790377/d85vrtprfiyttr2pstgm.mp4";
+        Uri videoUri = Uri.parse(videoUrl);
+
+        videoView.setVideoURI(videoUri);
+
+        // Liên kết VideoView với MediaController
+        mediaController.setAnchorView(mediaControllerContainer);
+        videoView.setMediaController(mediaController);
+
+        // Bắt đầu phát video
+        videoView.start();
+        videoView.getCurrentPosition();
 
         Intent intent = getIntent();
         String courseId = intent.getStringExtra("courseId");
@@ -85,6 +110,9 @@ public class TopicLearn extends AppCompatActivity {
                         progress.dismiss();
                         if(response.isSuccessful() && response.body().getStatus() == 0) {
                             ArrayList<Topic> topics = response.body().getData();
+                            ArrayList<Topic> topicChildDatas = response.body().getTopicChildData();
+
+                            Log.d("TAG", "topicChild data : " + topicChildDatas.size());
 
                             List<TypeGroupHeader> groupHeaders = new ArrayList<>();
                             Map<String, List<TypeGroupHeader>> childData = new HashMap<>();
@@ -95,7 +123,9 @@ public class TopicLearn extends AppCompatActivity {
                                 if(topic.getParentId() == null) {
                                     groupHeaders.add(new TypeGroupHeader(topic.getId(),topic.getName()));
 
-                                    Log.d("TAG", "topic.getTopicChildData().size(): " + topic.getTopicChildData().size() + " - " + topic.getTopicChild() );
+//                                    Log.d("TAG", "topic name : " + topic.getName());
+//
+//                                    Log.d("TAG", "topic.getTopicChildData().size(): " + topic.getTopicChildData().size() + " - " + topic.getTopicChild() );
                                         List<TypeGroupHeader> itemChild = new ArrayList<TypeGroupHeader>();
                                     if(topic.getTopicChildData().size() > 0) {
                                         for(int j = 0; j < topic.getTopicChildData().size(); j++) {
@@ -174,4 +204,27 @@ public class TopicLearn extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onRotateClicked() {
+        if (isRotated) {
+            // Xoay video về chế độ ban đầu
+            // ...
+
+            isRotated = false;
+        } else {
+            // Xoay video 90 độ theo chiều kim đồng hồ
+
+            isRotated = true;
+        }
+    }
+
+    @Override
+    public boolean isVideoRotated() {
+        return isRotated;
+    }
+
+    @Override
+    public void setVideoRotated(boolean isRotated) {
+        this.isRotated = isRotated;
+    }
 }

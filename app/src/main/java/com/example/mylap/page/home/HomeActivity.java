@@ -11,8 +11,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,7 +21,6 @@ import com.example.mylap.page.auth.LoginActivity;
 import com.example.mylap.page.auth.RegisterActivity;
 import com.example.mylap.page.userInfo.UserInfo;
 import com.example.mylap.responsive.GetCategory;
-import com.example.mylap.singleton.AuthManager;
 import com.example.mylap.utils.ProgressDialogUtils;
 import com.example.mylap.utils.SharedPreferencesUtils;
 
@@ -48,7 +45,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstantState) {
         super.onCreate(savedInstantState);
-        setContentView(R.layout.home_page);
+        setContentView(R.layout.activity_home);
         categoryList = new ArrayList<>();
         this.activity = this;
 
