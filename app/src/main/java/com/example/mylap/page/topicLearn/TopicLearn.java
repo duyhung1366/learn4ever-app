@@ -1,42 +1,34 @@
 package com.example.mylap.page.topicLearn;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.hardware.SensorManager;
 import android.net.Uri;
-import android.opengl.Matrix;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.SubMenu;
+import android.view.OrientationEventListener;
 import android.view.Surface;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.MediaController;
-import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
 import com.example.mylap.R;
 import com.example.mylap.api.ConfigApi;
-import com.example.mylap.models.Course;
 import com.example.mylap.models.topic.Topic;
-import com.example.mylap.responsive.CourseDetailRes;
 import com.example.mylap.responsive.GetListTopicRes;
 import com.example.mylap.utils.ProgressDialogUtils;
 import com.google.android.material.navigation.NavigationView;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,16 +38,6 @@ import java.util.Map;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
-import android.app.Activity;
-import android.content.pm.ActivityInfo;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorManager;
-import android.os.Bundle;
-import android.view.OrientationEventListener;
-import android.widget.VideoView;
 
 public class TopicLearn extends AppCompatActivity implements MediaControllerListener {
 
@@ -129,7 +111,7 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
         int type = intent.getIntExtra("type", 0);
         String courseName = intent.getStringExtra("courseName");
 
-        if(type == 0 || courseId == null) {
+        if (type == 0 || courseId == null) {
             return;
         }
 
@@ -155,27 +137,23 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
                     @Override
                     public void onResponse(Call<GetListTopicRes> call, Response<GetListTopicRes> response) {
                         progress.dismiss();
-                        if(response.isSuccessful() && response.body().getStatus() == 0) {
+                        if (response.isSuccessful() && response.body().getStatus() == 0) {
                             ArrayList<Topic> topics = response.body().getData();
-                            ArrayList<Topic> topicChildDatas = response.body().getTopicChildData();
-
-                            Log.d("TAG", "topicChild data : " + topicChildDatas.size());
+//                            ArrayList<Topic> topicChildDatas = response.body().getTopicChildData();
+//
+//                            Log.d("TAG", "topicChild data : " + topicChildDatas.size());
 
                             List<TypeGroupHeader> groupHeaders = new ArrayList<>();
                             Map<String, List<TypeGroupHeader>> childData = new HashMap<>();
 
-                            for(int i = 0; i < topics.size(); i++) {
+                            for (int i = 0; i < topics.size(); i++) {
                                 Topic topic = topics.get(i);
 
-                                if(topic.getParentId() == null) {
-                                    groupHeaders.add(new TypeGroupHeader(topic.getId(),topic.getName()));
-
-//                                    Log.d("TAG", "topic name : " + topic.getName());
-//
-//                                    Log.d("TAG", "topic.getTopicChildData().size(): " + topic.getTopicChildData().size() + " - " + topic.getTopicChild() );
-                                        List<TypeGroupHeader> itemChild = new ArrayList<TypeGroupHeader>();
-                                    if(topic.getTopicChildData().size() > 0) {
-                                        for(int j = 0; j < topic.getTopicChildData().size(); j++) {
+                                if (topic.getParentId() == null) {
+                                    groupHeaders.add(new TypeGroupHeader(topic.getId(), topic.getName()));
+                                    List<TypeGroupHeader> itemChild = new ArrayList<TypeGroupHeader>();
+                                    if (topic.getTopicChildData().size() > 0) {
+                                        for (int j = 0; j < topic.getTopicChildData().size(); j++) {
                                             Topic topicChild = topic.getTopicChildData().get(j);
                                             Log.d("TAG", "topicChild id: " + topicChild.getId() + " topicChild name : " + topicChild.getName());
                                             topicChilds.add(topicChild);
