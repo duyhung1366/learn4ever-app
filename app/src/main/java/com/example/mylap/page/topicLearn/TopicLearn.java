@@ -148,17 +148,7 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
 
                                 if (topic.getParentId() == null) {
                                     groupHeaders.add(new TypeGroupHeader(topic.get_id(), topic.getName()));
-//                                    if (topic.getTopicChildData().size() > 0) {
-//                                        for (int j = 0; j < topic.getTopicChildData().size(); j++) {
-//                                            Topic topicChild = topic.getTopicChildData().get(j);
-//                                            Log.d("TAG", "topicChild id: " + topicChild.getId() + " topicChild name : " + topicChild.getName());
-//                                            topicChilds.add(topicChild);
-//                                            itemChild.add(new TypeGroupHeader(topicChild.getId(), topicChild.getName()));
-//                                        }
-//                                    }
-//                                    childData.put(topic.getId(), itemChild);
                                 } else {
-                                    Log.d("TAG", "topic name: " + topic.getName());
                                     List<TypeGroupHeader> childDatasInTopic = new ArrayList<>();
 
                                     if(childData.containsKey(topic.getParentId())) {
