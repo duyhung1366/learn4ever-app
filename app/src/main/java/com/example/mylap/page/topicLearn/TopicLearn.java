@@ -5,6 +5,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.opengl.Matrix;
@@ -14,7 +15,9 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
+import android.view.Surface;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
@@ -44,6 +47,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import android.app.Activity;
+import android.content.pm.ActivityInfo;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.os.Bundle;
+import android.view.OrientationEventListener;
+import android.widget.VideoView;
+
 public class TopicLearn extends AppCompatActivity implements MediaControllerListener {
 
     ImageButton btn_open_drawer;
@@ -52,6 +65,8 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
     private VideoView videoView;
     private CustomMediaController mediaController;
     private boolean isRotated = false;
+    private SensorManager sensorManager;
+    private OrientationEventListener orientationEventListener;
 
     ConfigApi configApi = new ConfigApi();
 
@@ -63,6 +78,38 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
         videoView = findViewById(R.id.videoView);
         mediaController = new CustomMediaController(this, this);
         FrameLayout mediaControllerContainer = findViewById(R.id.mediaControllerContainer);
+
+        sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        // Khởi tạo OrientationEventListener
+        orientationEventListener = new OrientationEventListener(this, SensorManager.SENSOR_DELAY_NORMAL) {
+            @Override
+            public void onOrientationChanged(int orientation) {
+                if (orientation == ORIENTATION_UNKNOWN) return;
+
+                int screenOrientation = getWindowManager().getDefaultDisplay().getRotation();
+
+                if (screenOrientation == Surface.ROTATION_90 || screenOrientation == Surface.ROTATION_270) {
+                    // Thiết bị xoay ngang (landscape mode)
+                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE);
+                } else {
+                    // Thiết bị ở chế độ dọc (portrait mode)
+                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT);
+                }
+            }
+        };
+
+//        @Override
+//        protected void onResume() {
+//        super.onResume();
+//        // Bắt đầu lắng nghe sự kiện xoay
+//        orientationEventListener.enable();
+//    }
+//        @Override
+//        protected void onPause() {
+//        super.onPause();
+//        // Tắt lắng nghe sự kiện xoay
+//        orientationEventListener.disable();
+//    }
 
         String videoUrl = "http://res.cloudinary.com/dxp3jz1fc/video/upload/v1675790377/d85vrtprfiyttr2pstgm.mp4";
         Uri videoUri = Uri.parse(videoUrl);
@@ -204,16 +251,21 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
 
     }
 
-    @Override
+    // Xử lý khi người dùng ấn nút Full Màn hình
     public void onRotateClicked() {
         if (isRotated) {
-            // Xoay video về chế độ ban đầu
-            // ...
-
+            // Thoát chế độ Full Màn hình
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); // Chuyển về chế độ dọc
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN); // Bỏ fullscreen
+            getSupportActionBar().show(); // Hiển thị thanh tiêu đề (nếu có)
+//            setFullScreenButtonVisibility(true); // Hiển thị nút Full Màn hình
             isRotated = false;
         } else {
-            // Xoay video 90 độ theo chiều kim đồng hồ
-
+            // Chuyển sang chế độ Full Màn hình
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE); // Chuyển về chế độ ngang
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN); // Bật fullscreen
+            getSupportActionBar().hide(); // Ẩn thanh tiêu đề (nếu có)
+//            setFullScreenButtonVisibility(false); // Ẩn nút Full Màn hình
             isRotated = true;
         }
     }
