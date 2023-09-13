@@ -9,7 +9,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:src="@drawable/custom_icon_course"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
         />

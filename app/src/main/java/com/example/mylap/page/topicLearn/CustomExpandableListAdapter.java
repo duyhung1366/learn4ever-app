@@ -1,5 +1,6 @@
 package com.example.mylap.page.topicLearn;
 import android.content.Context;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,19 +10,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mylap.R;
+import com.example.mylap.models.topic.Topic;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     private Context context;
     private List<TypeGroupHeader> groupHeaders;
     private Map<String, List<TypeGroupHeader>> childData;
+    private List<Topic> listTopics = new ArrayList<>();
 
-    public CustomExpandableListAdapter(Context context, List<TypeGroupHeader> groupHeaders, Map<String, List<TypeGroupHeader>> childData) {
+    public CustomExpandableListAdapter(Context context, List<TypeGroupHeader> groupHeaders, Map<String, List<TypeGroupHeader>> childData, List<Topic> listTopics) {
         this.context = context;
         this.groupHeaders = groupHeaders;
         this.childData = childData;
+        this.listTopics = listTopics;
     }
 
     @Override
@@ -103,6 +109,43 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         childItemTextView.setText(childItem.getValue());
         childItemTextView.setTextColor(context.getResources().getColor(android.R.color.black)); // Thiết lập màu cho child item
 
+        ImageView childIcon = convertView.findViewById(R.id.imageView);
+
+        String idChildItem = childItem.getKey();
+
+        Topic foundTopic = null;
+        for (Topic topic : listTopics) {
+            if (topic.get_id() == idChildItem) {
+                foundTopic = topic;
+                break;
+            }
+        }
+        if(foundTopic != null) {
+            int topicType = foundTopic.getTopicType();
+            Log.d("TAG", "topicType: " + topicType);
+            switch (topicType) {
+                case 4:
+                    //video
+                    Log.d("TAG", "video: ");
+                    childIcon.setImageResource(R.drawable.icon_video);
+                    break;
+
+                case 2:
+                    // bai tap
+                    Log.d("TAG", "bai tap: ");
+                    childIcon.setImageResource(R.drawable.question);
+                    break;
+
+                case 5:
+                    // document
+                    Log.d("TAG", "document: ");
+                    childIcon.setImageResource(R.drawable.book_open_alt);
+                    break;
+
+                default:
+                    break;
+            }
+        }
         return convertView;
     }
 

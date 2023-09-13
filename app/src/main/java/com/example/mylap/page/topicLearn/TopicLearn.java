@@ -43,13 +43,13 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
 
     ImageButton btn_open_drawer;
     DrawerLayout drawerLayout;
-    List<Topic> topicChilds = new ArrayList<Topic>();
     private VideoView videoView;
     private CustomMediaController mediaController;
     private boolean isRotated = false;
     private SensorManager sensorManager;
     private OrientationEventListener orientationEventListener;
 
+    private List<Topic> listTopics = new ArrayList<>();
     ConfigApi configApi = new ConfigApi();
 
     @Override
@@ -79,19 +79,6 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
                 }
             }
         };
-
-//        @Override
-//        protected void onResume() {
-//        super.onResume();
-//        // Bắt đầu lắng nghe sự kiện xoay
-//        orientationEventListener.enable();
-//    }
-//        @Override
-//        protected void onPause() {
-//        super.onPause();
-//        // Tắt lắng nghe sự kiện xoay
-//        orientationEventListener.disable();
-//    }
 
         String videoUrl = "http://res.cloudinary.com/dxp3jz1fc/video/upload/v1675790377/d85vrtprfiyttr2pstgm.mp4";
         Uri videoUri = Uri.parse(videoUrl);
@@ -145,6 +132,7 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
 
                             for (int i = 0; i < topics.size(); i++) {
                                 Topic topic = topics.get(i);
+                                listTopics.add(topic);
 
                                 if (topic.getParentId() == null) {
                                     groupHeaders.add(new TypeGroupHeader(topic.get_id(), topic.getName()));
@@ -160,7 +148,7 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
                                 }
                             }
 
-                            updateMenu(courseName, groupHeaders, childData);
+                            updateMenu(courseName, groupHeaders, childData, listTopics);
 
                         } else {
                             Toast.makeText(getApplicationContext(), "server bị lỗi", Toast.LENGTH_SHORT).show();
@@ -178,7 +166,7 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
         }).start();
     }
 
-    private void updateMenu(String courseName, List<TypeGroupHeader> groupHeaders, Map<String, List<TypeGroupHeader>> childData) {
+    private void updateMenu(String courseName, List<TypeGroupHeader> groupHeaders, Map<String, List<TypeGroupHeader>> childData, List<Topic> listTopics) {
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         ExpandableListView expandableListView = navigationView.findViewById(R.id.expandableListView);
@@ -188,7 +176,7 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
         TextView headerTitle = headerView.findViewById(R.id.navHeaderTitle);
         headerTitle.setText("Danh sách khóa học " + courseName);
 
-        CustomExpandableListAdapter adapter = new CustomExpandableListAdapter(this, groupHeaders, childData);
+        CustomExpandableListAdapter adapter = new CustomExpandableListAdapter(this, groupHeaders, childData, listTopics);
 
         expandableListView.setAdapter(adapter);
 
