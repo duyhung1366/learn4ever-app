@@ -139,9 +139,6 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
                         progress.dismiss();
                         if (response.isSuccessful() && response.body().getStatus() == 0) {
                             ArrayList<Topic> topics = response.body().getData();
-//                            ArrayList<Topic> topicChildDatas = response.body().getTopicChildData();
-//
-//                            Log.d("TAG", "topicChild data : " + topicChildDatas.size());
 
                             List<TypeGroupHeader> groupHeaders = new ArrayList<>();
                             Map<String, List<TypeGroupHeader>> childData = new HashMap<>();
@@ -150,17 +147,26 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
                                 Topic topic = topics.get(i);
 
                                 if (topic.getParentId() == null) {
-                                    groupHeaders.add(new TypeGroupHeader(topic.getId(), topic.getName()));
-                                    List<TypeGroupHeader> itemChild = new ArrayList<TypeGroupHeader>();
-                                    if (topic.getTopicChildData().size() > 0) {
-                                        for (int j = 0; j < topic.getTopicChildData().size(); j++) {
-                                            Topic topicChild = topic.getTopicChildData().get(j);
-                                            Log.d("TAG", "topicChild id: " + topicChild.getId() + " topicChild name : " + topicChild.getName());
-                                            topicChilds.add(topicChild);
-                                            itemChild.add(new TypeGroupHeader(topicChild.getId(), topicChild.getName()));
-                                        }
+                                    groupHeaders.add(new TypeGroupHeader(topic.get_id(), topic.getName()));
+//                                    if (topic.getTopicChildData().size() > 0) {
+//                                        for (int j = 0; j < topic.getTopicChildData().size(); j++) {
+//                                            Topic topicChild = topic.getTopicChildData().get(j);
+//                                            Log.d("TAG", "topicChild id: " + topicChild.getId() + " topicChild name : " + topicChild.getName());
+//                                            topicChilds.add(topicChild);
+//                                            itemChild.add(new TypeGroupHeader(topicChild.getId(), topicChild.getName()));
+//                                        }
+//                                    }
+//                                    childData.put(topic.getId(), itemChild);
+                                } else {
+                                    Log.d("TAG", "topic name: " + topic.getName());
+                                    List<TypeGroupHeader> childDatasInTopic = new ArrayList<>();
+
+                                    if(childData.containsKey(topic.getParentId())) {
+                                        childDatasInTopic = childData.get(topic.getParentId());
                                     }
-                                    childData.put(topic.getId(), itemChild);
+
+                                    childDatasInTopic.add(new TypeGroupHeader(topic.get_id(), topic.getName()));
+                                    childData.put(topic.getParentId(), childDatasInTopic);
                                 }
                             }
 
