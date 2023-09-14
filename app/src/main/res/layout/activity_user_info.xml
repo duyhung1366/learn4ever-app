@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,7 +11,8 @@
         android:layout_height="match_parent"
         android:background="@color/background"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
             android:layout_width="100dp"
@@ -26,26 +28,7 @@
             android:textSize="22sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tvUsername"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_margin="10dp"
-            android:textColor="#325535"
-            android:textColorHint="#325535"
-            android:textSize="18sp" />
-
-
-        <TextView
-            android:id="@+id/tvEmail"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_margin="10dp"
-            android:textColor="#325535"
-            android:textColorHint="#325535"
-            android:textSize="18sp" />
-
-        <TextView
+        <EditText
             android:id="@+id/tvUser"
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -54,7 +37,16 @@
             android:textColorHint="#325535"
             android:textSize="18sp" />
 
-        <TextView
+        <EditText
+            android:id="@+id/tvEmail"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:textColor="#325535"
+            android:textColorHint="#325535"
+            android:textSize="18sp" />
+
+        <EditText
             android:id="@+id/tvNumber"
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -64,13 +56,44 @@
             android:textSize="18sp" />
 
         <TextView
-            android:id="@+id/tvGender"
+            android:id="@+id/etGender"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_margin="10dp"
+            android:hint="Giới tính:"
             android:textColor="#325535"
             android:textColorHint="#325535"
             android:textSize="18sp" />
+
+        <RadioGroup
+            android:id="@+id/radioGioiTinh"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:hint="Chọn Giới Tính"
+            android:orientation="horizontal"
+            android:textColorHint="#325535"
+            android:textColor="#000000">
+
+
+            <RadioButton
+                android:id="@+id/radioButtonMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Nam"
+                android:textColorHint="#325535"
+                android:textColor="#325535"/>
+
+            <RadioButton
+                android:id="@+id/radioButtonFemale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="Nữ"
+                android:textColorHint="#325535"
+                android:textColor="#325535"/>
+
+        </RadioGroup>
 
 
         <LinearLayout

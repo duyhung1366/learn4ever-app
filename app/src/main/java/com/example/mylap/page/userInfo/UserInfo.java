@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,11 +25,11 @@ import retrofit2.Response;
 
 public class UserInfo extends AppCompatActivity {
 
-    private TextView tvUsername;
     private TextView tvEmail;
     private TextView tvUser;
     private TextView tvNumber;
-    private TextView tvGender;
+    private int etGender;
+    private RadioGroup radioGioiTinh;
 
     private Button btnFix;
     private Button btnExit;
@@ -44,9 +46,9 @@ public class UserInfo extends AppCompatActivity {
 
         tvUser = findViewById(R.id.tvUser);
         tvEmail = findViewById(R.id.tvEmail);
-        tvUsername = findViewById(R.id.tvUsername);
         tvNumber = findViewById(R.id.tvNumber);
-        tvGender = findViewById(R.id.tvGender);
+        etGender = Integer.parseInt(String.valueOf(etGender));
+        radioGioiTinh = findViewById(R.id.radioGioiTinh);
         btnFix = findViewById(R.id.btnFix);
         btnExit = findViewById(R.id.btnExit);
 
@@ -67,10 +69,18 @@ public class UserInfo extends AppCompatActivity {
                     if (user != null) {
                         // Gán thông tin người dùng lên các thành phần hiển thị
                         idUser = user.get_id();
+                        tvUser.setText("Tên Người Dùng: " + user.getName());
                         tvEmail.setText("Email: " + user.getEmail());
-                        tvUser.setText("User: " + user.getName());
                         tvNumber.setText("Phone: " + user.getPhoneNumber());
-                        tvGender.setText("Gender: " + user.getGender());
+                        etGender = user.getGender();
+
+
+                    }
+                    // Xác định RadioButton tương ứng với giới tính nhận được và chọn nó
+                    if (etGender == 1) {
+                        radioGioiTinh.check(R.id.radioButtonMale);
+                    } else if (etGender == 2) {
+                        radioGioiTinh.check(R.id.radioButtonFemale);
                     }
 
                     progressDialog.dismiss();
