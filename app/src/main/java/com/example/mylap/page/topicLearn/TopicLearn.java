@@ -22,6 +22,8 @@ import android.widget.VideoView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.mylap.R;
 import com.example.mylap.api.ConfigApi;
@@ -50,6 +52,8 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
     private OrientationEventListener orientationEventListener;
 
     private List<Topic> listTopics = new ArrayList<>();
+    private List<Topic> listTopicChilds = new ArrayList<>();
+    private TopicViewModel topicModel;
     ConfigApi configApi = new ConfigApi();
 
     @Override
@@ -60,6 +64,18 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
         videoView = findViewById(R.id.videoView);
         mediaController = new CustomMediaController(this, this);
         FrameLayout mediaControllerContainer = findViewById(R.id.mediaControllerContainer);
+
+        // view model
+        topicModel = new ViewModelProvider(this).get(TopicViewModel.class);
+
+        topicModel.getCurrentTopic().observe(this, new Observer<Topic>() {
+            @Override
+            public void onChanged(Topic topic) {
+                if(topic != null) {
+                    Log.d("TAG", " current topic : " + topic.getName());
+                }
+            }
+        });
 
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         // Khởi tạo OrientationEventListener
@@ -137,6 +153,7 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
                                 if (topic.getParentId() == null) {
                                     groupHeaders.add(new TypeGroupHeader(topic.get_id(), topic.getName()));
                                 } else {
+                                    listTopicChilds.add(topic);
                                     List<TypeGroupHeader> childDatasInTopic = new ArrayList<>();
 
                                     if(childData.containsKey(topic.getParentId())) {
@@ -186,7 +203,16 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
                     ExpandableListView parent, View v,
                     int groupPosition, int childPosition, long id) {
                 // Xử lý sự kiện ở đây
-                Log.d("TAG", "groupPosition: " + groupPosition + "childPosition : " + childPosition + "id : " + id);
+                Topic topicClick = null;
+                TypeGroupHeader childItem = (TypeGroupHeader) adapter.getChild(groupPosition, childPosition);
+                String idChildItem = childItem.getKey();
+                for (Topic topic : listTopicChilds) {
+                    if (topic.get_id() == idChildItem) {
+                        topicClick = topic;
+                        break;
+                    }
+                }
+                topicModel.setCurrentTopic(topicClick);
 
                 return true;
             }

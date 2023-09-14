@@ -122,7 +122,6 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         }
         if(foundTopic != null) {
             int topicType = foundTopic.getTopicType();
-            Log.d("TAG", "topicType: " + topicType);
             switch (topicType) {
                 case 4:
                     //video
