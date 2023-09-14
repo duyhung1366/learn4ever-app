@@ -12,9 +12,10 @@ import android.view.OrientationEventListener;
 import android.view.Surface;
 import android.view.View;
 import android.view.WindowManager;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -36,7 +37,6 @@ import com.example.mylap.utils.ProgressDialogUtils;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -85,7 +85,7 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
         topicModel.getCurrentTopic().observe(this, new Observer<Topic>() {
             @Override
             public void onChanged(Topic topic) {
-                if(topic != null) {
+                if (topic != null) {
                     none_topic.setVisibility(View.GONE);
                     Log.d("TAG", " current topic : " + topic.getName());
                     int topicType = topic.getTopicType();
@@ -100,7 +100,7 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
                             topic_name.setText(topic.getName());
                             int[] date = Format.convertTimeMiliseconds(topic.getUpdateDate());
                             topic_update_date.setText("Ngày cập nhật : " + "Ngày " + date[0] + " Tháng " + date[1] + " Năm " + date[2]);
-                            topic_des.setText(topic.getDes());
+                            topic_des.setText(Format.formatText(topic.getDes(), false));
 
                             layout_video.setVisibility(View.VISIBLE);
                             String videoUrl = topic.getVideo();
@@ -136,7 +136,13 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
                             int[] date_document = Format.convertTimeMiliseconds(topic.getUpdateDate());
                             topic_update_date_document.setText("Ngày cập nhật : " + "Ngày " + date_document[0] + " Tháng " + date_document[1] + " Năm " + date_document[2]);
 
-                            topic_des_document.setText(Format.formatText(topic.getDes()));
+//                            topic_des_document.setText(Format.formatText(topic.getDes()));
+
+                            WebView webView = findViewById(R.id.webview_document);
+
+                            WebSettings webSettings = webView.getSettings();
+                            webSettings.setJavaScriptEnabled(true); // Bật JavaScript nếu cần thiết
+                            webView.loadDataWithBaseURL(null, Format.formatText(topic.getDes(), true), "text/html", "UTF-8", null);
 
                             break;
 
@@ -144,7 +150,7 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
                             layout_video.setVisibility(View.GONE);
                             break;
                     }
-                    if(topicType == 4) {
+                    if (topicType == 4) {
                         // video
                         layout_video.setVisibility(View.VISIBLE);
                         String videoUrl = topic.getVideo();
@@ -228,7 +234,7 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
                                     listTopicChilds.add(topic);
                                     List<TypeGroupHeader> childDatasInTopic = new ArrayList<>();
 
-                                    if(childData.containsKey(topic.getParentId())) {
+                                    if (childData.containsKey(topic.getParentId())) {
                                         childDatasInTopic = childData.get(topic.getParentId());
                                     }
 
@@ -239,7 +245,7 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
 
                             updateMenu(courseName, groupHeaders, childData, listTopics);
                             // set current topic
-                            if(listTopicChilds.size() > 0) {
+                            if (listTopicChilds.size() > 0) {
                                 topicModel.setCurrentTopic(listTopicChilds.get(0));
                             }
                         } else {
@@ -281,7 +287,7 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
                 Topic topicClick = null;
                 TypeGroupHeader childItem = (TypeGroupHeader) adapter.getChild(groupPosition, childPosition);
                 String idChildItem = childItem.getKey();
-                if(topicModel.get_currentTopic().get_id() == idChildItem) {
+                if (topicModel.get_currentTopic().get_id() == idChildItem) {
                     return true;
                 }
                 for (Topic topic : listTopicChilds) {

@@ -44,7 +44,7 @@ public class ListCourseAdapter extends RecyclerView.Adapter<CustomViewHolder> {
 
         Picasso.get().load(item.getAvatar()).into(holder.imageView);
         holder.textName.setText(item.getCourseName());
-        holder.textDescription.setText(Format.formatText(item.getShortDes()));
+        holder.textDescription.setText(Format.formatText(item.getShortDes(), false));
         holder.buttonDoNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -42,7 +42,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomViewHolder> {
 
         Picasso.get().load(item.getAvatar()).into(holder.imageView);
         holder.textName.setText(item.getName());
-        holder.textDescription.setText(Format.formatText(item.getDes()));
+        holder.textDescription.setText(Format.formatText(item.getDes(), false));
         holder.buttonDoNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

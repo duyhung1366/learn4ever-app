@@ -108,7 +108,7 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:gravity="center"
                     android:orientation="vertical"
                     android:padding="12dp">
@@ -139,6 +139,11 @@
                         android:lineSpacingExtra="4dp"
                         android:textColor="#000"
                         android:textSize="16dp" />
+
+                    <WebView
+                        android:id="@+id/webview_document"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
 
                 </LinearLayout>
 
