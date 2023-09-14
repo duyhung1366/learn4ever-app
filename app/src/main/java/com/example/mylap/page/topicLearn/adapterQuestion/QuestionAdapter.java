@@ -9,11 +9,13 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mylap.R;
 import com.example.mylap.models.question.AnswerQuestion;
 import com.example.mylap.models.question.Question;
+import com.example.mylap.utils.Format;
 
 import java.util.List;
 
@@ -37,7 +39,7 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
     @Override
     public void onBindViewHolder(@NonNull QuestionViewHolder holder, int position) {
         Question question = questions.get(position);
-        holder.questionTextView.setText(question.getQuestion());
+        holder.questionTextView.setText("Câu hỏi " + (position + 1) + ": " + Format.formatText(question.getQuestion(), false));
 
         // Xóa tất cả các RadioButton hiện tại trong RadioGroup
         holder.answerOptionsRadioGroup.removeAllViews();
@@ -45,7 +47,9 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
         // Thêm các RadioButton cho các phương án trả lời từ danh sách options
         for (AnswerQuestion option : question.getAnswer()) {
             RadioButton radioButton = new RadioButton(context);
-            radioButton.setText(option.getText());
+            radioButton.setText(Format.formatText(option.getText(), false));
+            int textColor = ContextCompat.getColor(context, R.color.textColorSecondary);
+            radioButton.setTextColor(textColor);
 
             // Xử lý sự kiện khi người dùng thay đổi lựa chọn
             radioButton.setOnCheckedChangeListener((buttonView, isChecked) -> {

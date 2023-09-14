@@ -2,7 +2,7 @@ package com.example.mylap.models.question;
 
 import java.util.ArrayList;
 
-public class Question {
+public class Question implements Comparable<Question>{
     private String _id;
     private String question;
     private ArrayList<AnswerQuestion> answer;
@@ -10,13 +10,13 @@ public class Question {
     private int status;
     private int index;
     private String hint;
-    private int createDate;
-    private int updateDate;
+    private long createDate;
+    private long updateDate;
 
     public Question() {
     }
 
-    public Question(String _id, String question, ArrayList<AnswerQuestion> answer, String parentId, int status, int index, String hint, int createDate, int updateDate) {
+    public Question(String _id, String question, ArrayList<AnswerQuestion> answer, String parentId, int status, int index, String hint, long createDate, long updateDate) {
         this._id = _id;
         this.question = question;
         this.answer = answer;
@@ -84,20 +84,26 @@ public class Question {
         this.hint = hint;
     }
 
-    public int getCreateDate() {
+    public long getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(int createDate) {
+    public void setCreateDate(long createDate) {
         this.createDate = createDate;
     }
 
-    public int getUpdateDate() {
+    public long getUpdateDate() {
         return updateDate;
     }
 
-    public void setUpdateDate(int updateDate) {
+    public void setUpdateDate(long updateDate) {
         this.updateDate = updateDate;
+    }
+
+    @Override
+    public int compareTo(Question otherQuestion) {
+        // So sánh theo trường index tăng dần
+        return Integer.compare(this.index, otherQuestion.index);
     }
 
 }

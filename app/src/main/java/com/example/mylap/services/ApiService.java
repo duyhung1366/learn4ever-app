@@ -6,6 +6,7 @@ import com.example.mylap.responsive.CourseDetailRes;
 import com.example.mylap.responsive.GetCategory;
 import com.example.mylap.responsive.GetListCourse;
 import com.example.mylap.responsive.GetListTopicRes;
+import com.example.mylap.responsive.GetQuestionRes;
 import com.example.mylap.responsive.LoginRes;
 
 import retrofit2.Call;
@@ -64,5 +65,10 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("/api-mobile/update-user")
     Call<User> updateUser(@Field("_id") String _id, @Field("email") String email, @Field("account") String account, @Field("phoneNumber") String phoneNumber, @Field("gender") String gender);
+
+    @FormUrlEncoded
+    @POST("/api-mobile/load-question-by-topic-id")
+    Call<GetQuestionRes> getQuestion(@Field("topicId") String topicId);
+
     // Các phương thức API khác...
 }

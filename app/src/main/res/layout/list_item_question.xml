@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:text="Câu hỏi"
         android:textSize="18sp"
+        android:textColor="#000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
