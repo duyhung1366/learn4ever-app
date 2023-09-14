@@ -141,6 +141,61 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/layout_practice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/background"
+            android:orientation="vertical">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="12dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="BÀI TẬP"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="30dp"
+                        android:textStyle="bold"
+                        android:gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/topic_name_practice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/textColorSecondary"
+                        android:textSize="24dp"
+                        android:textStyle="bold" />
+
+<!--                    <ListView-->
+<!--                        android:id="@+id/questionListView"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:divider="@android:color/darker_gray"-->
+<!--                        android:dividerHeight="1dp" />-->
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerView_listQuestion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/list_item_question" />
+
+                </LinearLayout>
+
+            </ScrollView>
+
+        </LinearLayout>
+
         <ImageView
             android:id="@+id/btn_open_drawer"
             android:layout_width="wrap_content"
@@ -161,7 +216,8 @@
         android:layout_gravity="start"
         android:background="@color/background"
         app:headerLayout="@layout/nav_header_main"
-        app:menu="@menu/menu_topic_course">
+        app:menu="@menu/menu_topic_course"
+        android:visibility="gone">
 
         <ExpandableListView
             android:id="@+id/expandableListView"

@@ -27,10 +27,13 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.mylap.R;
 import com.example.mylap.api.ConfigApi;
+import com.example.mylap.models.question.Question;
 import com.example.mylap.models.topic.Topic;
+import com.example.mylap.page.topicLearn.adapterQuestion.QuestionAdapter;
 import com.example.mylap.responsive.GetListTopicRes;
 import com.example.mylap.utils.Format;
 import com.example.mylap.utils.ProgressDialogUtils;
@@ -118,7 +121,15 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
                             // bai tap
                             videoView.pause();
                             layout_video.setVisibility(View.GONE);
-                            layout_document.setVisibility(View.VISIBLE);
+                            layout_document.setVisibility(View.GONE);
+
+                            // get question
+//                            configApi.getApiService()
+
+                            // get element
+                            RecyclerView recyclerView = findViewById(R.id.recyclerView_listQuestion);
+                            QuestionAdapter adapter;
+
 
                             break;
 
@@ -147,6 +158,9 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
 
                         default:
                             layout_video.setVisibility(View.GONE);
+                            videoView.pause();
+                            layout_document.setVisibility(View.GONE);
+                            none_topic.setVisibility(View.VISIBLE);
                             break;
                     }
                     if (topicType == 4) {
