@@ -1,6 +1,5 @@
 package com.example.mylap.services;
 
-import com.example.mylap.models.Category;
 import com.example.mylap.models.User;
 import com.example.mylap.responsive.CountLearnRes;
 import com.example.mylap.responsive.CourseDetailRes;
@@ -9,15 +8,9 @@ import com.example.mylap.responsive.GetListCourse;
 import com.example.mylap.responsive.GetListTopicRes;
 import com.example.mylap.responsive.LoginRes;
 
-import java.util.List;
-
-import okhttp3.RequestBody;
 import retrofit2.Call;
-import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.GET;
-import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -64,9 +57,12 @@ public interface ApiService {
     @POST("/api-mobile/get-list-topic-by-courseId")
     Call<GetListTopicRes> getTopicByCourse(@Field("courseId") String courseId, @Field("type") int type, @Field("status") int status);
 
-    @GET("/api-mobile/user")
-    Call<User> getUserInfo(@Header("Authorization") String token);
+    @FormUrlEncoded
+    @POST("/api-mobile/user")
+    Call<User> getUserInfo(@Field("token") String token);
 
-
+    @FormUrlEncoded
+    @POST("/api-mobile/update-user")
+    Call<User> updateUser(@Field("_id") String _id, @Field("email") String email, @Field("account") String account, @Field("phoneNumber") String phoneNumber, @Field("gender") String gender);
     // Các phương thức API khác...
 }

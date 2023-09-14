@@ -14,16 +14,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.mylap.R;
 import com.example.mylap.api.ConfigApi;
 import com.example.mylap.models.User;
-import com.example.mylap.responsive.LoginRes;
-import com.example.mylap.services.ApiService;
 import com.example.mylap.utils.ProgressDialogUtils;
 import com.example.mylap.utils.SharedPreferencesUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class UserInfo extends AppCompatActivity {
 
@@ -35,8 +31,10 @@ public class UserInfo extends AppCompatActivity {
 
     private Button btnFix;
     private Button btnExit;
-    ConfigApi configApi = new ConfigApi();
     private Context userinfoContext;
+    private ConfigApi configApi = new ConfigApi();
+
+    private String idUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,32 +56,21 @@ public class UserInfo extends AppCompatActivity {
         ProgressDialog progressDialog = ProgressDialogUtils.createProgressDialog(userinfoContext);
         progressDialog.show();
 
-        // Tạo Retrofit client
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("/api-mobile/user")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        // Tạo instance của UserService từ Retrofit client
-        ApiService userService = retrofit.create(ApiService.class);
-
-        // Gửi yêu cầu lấy thông tin người dùng
-        Call<User> call = userService.getUserInfo("Bearer " + token);
-        call.enqueue(new Callback<User>() {
+        configApi.getApiService().getUserInfo(token).enqueue(new Callback<User>() {
 
             // Gửi yêu cầu lấy thông tin người dùng
-                @Override
-                public void onResponse(Call<User> call, Response<User> response) {
-                    if (response.isSuccessful()) {
-                        User user = response.body();
-                        if (user != null) {
-                            // Gán thông tin người dùng lên các thành phần hiển thị
-                            tvUsername.setText("UserName: " + user.getUserName());
-                            tvEmail.setText("Email: " + user.getEmail());
-                            tvUser.setText("User: " + user.getName());
-                            tvNumber.setText("Phone: " + user.getPhoneNumber());
-                            tvGender.setText("Gender: " + user.getGender());
-
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                if (response.isSuccessful()) {
+                    User user = response.body();
+                    Log.d("TAG", "user: " + user.getAccount());
+                    if (user != null) {
+                        // Gán thông tin người dùng lên các thành phần hiển thị
+                        idUser = user.get_id();
+                        tvEmail.setText("Email: " + user.getEmail());
+                        tvUser.setText("User: " + user.getName());
+                        tvNumber.setText("Phone: " + user.getPhoneNumber());
+                        tvGender.setText("Gender: " + user.getGender());
                     }
 
                     progressDialog.dismiss();
@@ -108,6 +95,10 @@ public class UserInfo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                // call api update user
+                // lấy id user = idUser
+                // check status = 0 , thanh cong => Toast
+
             }
         });
 

@@ -4,20 +4,18 @@ public class User {
     private String _id;
     private String account;
     private String name;
-    private String username;
     private String avatar;
     private String email;
     private String phoneNumber;
     private int birth;
     private int gender;
-    private int registerDate;
+    private long registerDate;
     private int status;
 
-    public User(String _id, String account, String name, String username, String avatar, String email, String phoneNumber, int birth, int gender, int registerDate, int status) {
+    public User(String _id, String account, String name, String username, String avatar, String email, String phoneNumber, int birth, int gender, long registerDate, int status) {
         this._id = _id;
         this.account = account;
         this.name = name;
-        this.username = username;
         this.avatar = avatar;
         this.email = email;
         this.phoneNumber = phoneNumber;
@@ -52,13 +50,6 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
-    }
-    public String getUserName() {
-        return username;
-    }
-
-    public void setUserName(String username) {
-        this.username = username;
     }
 
     public String getAvatar() {
@@ -101,11 +92,11 @@ public class User {
         this.gender = gender;
     }
 
-    public int getRegisterDate() {
+    public long getRegisterDate() {
         return registerDate;
     }
 
-    public void setRegisterDate(int registerDate) {
+    public void setRegisterDate(long registerDate) {
         this.registerDate = registerDate;
     }
 
