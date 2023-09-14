@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.OrientationEventListener;
 import android.view.Surface;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -18,6 +19,7 @@ import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -60,6 +62,8 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
     private boolean isRotated = false;
     private SensorManager sensorManager;
     private OrientationEventListener orientationEventListener;
+    private FrameLayout fullLayout;
+    private RelativeLayout videoLayout;
 
     private List<Topic> listTopics = new ArrayList<>();
     private List<Topic> listTopicChilds = new ArrayList<>();
@@ -75,6 +79,8 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
         layout_video = findViewById(R.id.layout_video);
         layout_document = findViewById(R.id.layout_document);
         none_topic = findViewById(R.id.none_topic);
+        videoLayout = findViewById(R.id.videoLayout);
+        fullLayout = findViewById(R.id.fullLayout);
         mediaController = new CustomMediaController(this, this);
         FrameLayout mediaControllerContainer = findViewById(R.id.mediaControllerContainer);
 
@@ -341,16 +347,18 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
         if (isRotated) {
             // Thoát chế độ Full Màn hình
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT); // Chuyển về chế độ dọc
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN); // Bỏ fullscreen
-            getSupportActionBar().show(); // Hiển thị thanh tiêu đề (nếu có)
-//            setFullScreenButtonVisibility(true); // Hiển thị nút Full Màn hình
             isRotated = false;
         } else {
             // Chuyển sang chế độ Full Màn hình
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE); // Chuyển về chế độ ngang
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN); // Bật fullscreen
-            getSupportActionBar().hide(); // Ẩn thanh tiêu đề (nếu có)
-//            setFullScreenButtonVisibility(false); // Ẩn nút Full Màn hình
+            // Xử lý full màn
+            ViewGroup.LayoutParams layoutParams = videoLayout.getLayoutParams();
+            layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
+            layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
+            videoLayout.setLayoutParams(layoutParams);
+
+            btn_open_drawer.setVisibility(View.GONE); //ẩn nút ngăn kéo
+
             isRotated = true;
         }
     }

@@ -10,6 +10,7 @@
     tools:openDrawer="start">
 
     <FrameLayout
+        android:id="@+id/fullLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -34,19 +35,20 @@
         <LinearLayout
             android:id="@+id/layout_video"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@color/background"
             android:orientation="vertical"
             android:visibility="gone">
 
             <RelativeLayout
+                android:id="@+id/videoLayout"
                 android:layout_width="match_parent"
                 android:layout_height="213dp">
 
                 <VideoView
                     android:id="@+id/videoView"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="wrap_content" />
 
                 <!-- Khung controller sẽ nằm bên trong VideoView -->
                 <FrameLayout
@@ -146,7 +148,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/background"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -216,8 +219,7 @@
         android:layout_gravity="start"
         android:background="@color/background"
         app:headerLayout="@layout/nav_header_main"
-        app:menu="@menu/menu_topic_course"
-        android:visibility="gone">
+        app:menu="@menu/menu_topic_course">
 
         <ExpandableListView
             android:id="@+id/expandableListView"
