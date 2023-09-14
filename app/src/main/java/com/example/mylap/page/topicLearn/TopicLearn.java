@@ -130,7 +130,6 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
 
                             TextView topic_name_document = findViewById(R.id.topic_name_document);
                             TextView topic_update_date_document = findViewById(R.id.topic_update_date_document);
-                            TextView topic_des_document = findViewById(R.id.topic_des_document);
 
                             topic_name_document.setText(topic.getName());
                             int[] date_document = Format.convertTimeMiliseconds(topic.getUpdateDate());
