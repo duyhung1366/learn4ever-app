@@ -15,6 +15,8 @@ import android.view.WindowManager;
 import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -29,10 +31,12 @@ import com.example.mylap.R;
 import com.example.mylap.api.ConfigApi;
 import com.example.mylap.models.topic.Topic;
 import com.example.mylap.responsive.GetListTopicRes;
+import com.example.mylap.utils.Format;
 import com.example.mylap.utils.ProgressDialogUtils;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,8 +47,11 @@ import retrofit2.Response;
 
 public class TopicLearn extends AppCompatActivity implements MediaControllerListener {
 
-    ImageButton btn_open_drawer;
+    ImageView btn_open_drawer;
     DrawerLayout drawerLayout;
+    private LinearLayout layout_video;
+    private LinearLayout layout_document;
+    private LinearLayout none_topic;
     private VideoView videoView;
     private CustomMediaController mediaController;
     private boolean isRotated = false;
@@ -62,8 +69,15 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
         setContentView(R.layout.activity_topic_learn);
 
         videoView = findViewById(R.id.videoView);
+        layout_video = findViewById(R.id.layout_video);
+        layout_document = findViewById(R.id.layout_document);
+        none_topic = findViewById(R.id.none_topic);
         mediaController = new CustomMediaController(this, this);
         FrameLayout mediaControllerContainer = findViewById(R.id.mediaControllerContainer);
+
+        // Liên kết VideoView với MediaController
+        mediaController.setAnchorView(mediaControllerContainer);
+        videoView.setMediaController(mediaController);
 
         // view model
         topicModel = new ViewModelProvider(this).get(TopicViewModel.class);
@@ -72,7 +86,77 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
             @Override
             public void onChanged(Topic topic) {
                 if(topic != null) {
+                    none_topic.setVisibility(View.GONE);
                     Log.d("TAG", " current topic : " + topic.getName());
+                    int topicType = topic.getTopicType();
+                    switch (topicType) {
+                        case 4:
+                            layout_document.setVisibility(View.GONE);
+                            //video
+                            TextView topic_name = findViewById(R.id.topic_name_video);
+                            TextView topic_update_date = findViewById(R.id.topic_update_date_video);
+                            TextView topic_des = findViewById(R.id.topic_des_video);
+
+                            topic_name.setText(topic.getName());
+                            int[] date = Format.convertTimeMiliseconds(topic.getUpdateDate());
+                            topic_update_date.setText("Ngày cập nhật : " + "Ngày " + date[0] + " Tháng " + date[1] + " Năm " + date[2]);
+                            topic_des.setText(topic.getDes());
+
+                            layout_video.setVisibility(View.VISIBLE);
+                            String videoUrl = topic.getVideo();
+                            Uri videoUri = Uri.parse(videoUrl);
+
+                            videoView.setVideoURI(videoUri);
+
+                            // Bắt đầu phát video
+                            videoView.start();
+
+                            // videoView.getCurrentPosition();
+                            break;
+
+                        case 2:
+                            // bai tap
+                            videoView.pause();
+                            layout_video.setVisibility(View.GONE);
+                            layout_document.setVisibility(View.VISIBLE);
+
+                            break;
+
+                        case 5:
+                            // document
+                            videoView.pause();
+                            layout_document.setVisibility(View.VISIBLE);
+                            layout_video.setVisibility(View.GONE);
+
+                            TextView topic_name_document = findViewById(R.id.topic_name_document);
+                            TextView topic_update_date_document = findViewById(R.id.topic_update_date_document);
+                            TextView topic_des_document = findViewById(R.id.topic_des_document);
+
+                            topic_name_document.setText(topic.getName());
+                            int[] date_document = Format.convertTimeMiliseconds(topic.getUpdateDate());
+                            topic_update_date_document.setText("Ngày cập nhật : " + "Ngày " + date_document[0] + " Tháng " + date_document[1] + " Năm " + date_document[2]);
+
+                            topic_des_document.setText(Format.formatText(topic.getDes()));
+
+                            break;
+
+                        default:
+                            layout_video.setVisibility(View.GONE);
+                            break;
+                    }
+                    if(topicType == 4) {
+                        // video
+                        layout_video.setVisibility(View.VISIBLE);
+                        String videoUrl = topic.getVideo();
+                        Uri videoUri = Uri.parse(videoUrl);
+
+                        videoView.setVideoURI(videoUri);
+
+                        // Bắt đầu phát video
+                        videoView.start();
+
+                        // videoView.getCurrentPosition();
+                    }
                 }
             }
         });
@@ -96,19 +180,7 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
             }
         };
 
-        String videoUrl = "http://res.cloudinary.com/dxp3jz1fc/video/upload/v1675790377/d85vrtprfiyttr2pstgm.mp4";
-        Uri videoUri = Uri.parse(videoUrl);
-
-        videoView.setVideoURI(videoUri);
-
-        // Liên kết VideoView với MediaController
-        mediaController.setAnchorView(mediaControllerContainer);
-        videoView.setMediaController(mediaController);
-
-        // Bắt đầu phát video
-        videoView.start();
-        videoView.getCurrentPosition();
-
+        // get itent
         Intent intent = getIntent();
         String courseId = intent.getStringExtra("courseId");
         int type = intent.getIntExtra("type", 0);
@@ -166,7 +238,10 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
                             }
 
                             updateMenu(courseName, groupHeaders, childData, listTopics);
-
+                            // set current topic
+                            if(listTopicChilds.size() > 0) {
+                                topicModel.setCurrentTopic(listTopicChilds.get(0));
+                            }
                         } else {
                             Toast.makeText(getApplicationContext(), "server bị lỗi", Toast.LENGTH_SHORT).show();
                         }
@@ -206,14 +281,17 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
                 Topic topicClick = null;
                 TypeGroupHeader childItem = (TypeGroupHeader) adapter.getChild(groupPosition, childPosition);
                 String idChildItem = childItem.getKey();
+                if(topicModel.get_currentTopic().get_id() == idChildItem) {
+                    return true;
+                }
                 for (Topic topic : listTopicChilds) {
                     if (topic.get_id() == idChildItem) {
                         topicClick = topic;
                         break;
                     }
                 }
+                drawerLayout.closeDrawer(GravityCompat.START);
                 topicModel.setCurrentTopic(topicClick);
-
                 return true;
             }
         });

@@ -19,4 +19,8 @@ public class TopicViewModel extends ViewModel {
         _currentTopic = data;
         currentTopic.setValue(_currentTopic);
     }
+
+    public Topic get_currentTopic() {
+        return _currentTopic;
+    }
 }
