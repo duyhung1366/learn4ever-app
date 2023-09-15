@@ -28,6 +28,14 @@
             android:textSize="22sp"
             android:textStyle="bold" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tên người dùng: "
+            android:layout_gravity="start"
+            android:layout_marginLeft="20dp"
+            />
+
         <EditText
             android:id="@+id/tvUser"
             android:layout_width="match_parent"
@@ -36,6 +44,13 @@
             android:textColor="#325535"
             android:textColorHint="#325535"
             android:textSize="18sp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email: "
+            android:layout_gravity="start"
+            android:layout_marginLeft="20dp"
+            />
 
         <EditText
             android:id="@+id/tvEmail"
@@ -45,6 +60,14 @@
             android:textColor="#325535"
             android:textColorHint="#325535"
             android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Số điện thoại: "
+            android:layout_gravity="start"
+            android:layout_marginLeft="20dp"
+            />
 
         <EditText
             android:id="@+id/tvNumber"

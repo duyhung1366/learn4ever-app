@@ -8,6 +8,7 @@ import com.example.mylap.responsive.GetListCourse;
 import com.example.mylap.responsive.GetListTopicRes;
 import com.example.mylap.responsive.GetQuestionRes;
 import com.example.mylap.responsive.LoginRes;
+import com.example.mylap.responsive.UpdateUserRes;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -64,7 +65,7 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("/api-mobile/update-user")
-    Call<User> updateUser(@Field("_id") String _id, @Field("email") String email, @Field("account") String account, @Field("phoneNumber") String phoneNumber, @Field("gender") String gender);
+    Call<UpdateUserRes> updateUser(@Field("_id") String _id, @Field("email") String email, @Field("name") String name, @Field("phoneNumber") String phoneNumber, @Field("gender") int gender);
 
     @FormUrlEncoded
     @POST("/api-mobile/load-question-by-topic-id")
