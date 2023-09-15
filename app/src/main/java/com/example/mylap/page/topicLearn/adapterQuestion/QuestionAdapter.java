@@ -1,4 +1,5 @@
 package com.example.mylap.page.topicLearn.adapterQuestion;
+
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -43,9 +44,9 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
 
         // Xóa tất cả các RadioButton hiện tại trong RadioGroup
         holder.answerOptionsRadioGroup.removeAllViews();
-
         // Thêm các RadioButton cho các phương án trả lời từ danh sách options
         for (AnswerQuestion option : question.getAnswer()) {
+
             RadioButton radioButton = new RadioButton(context);
             radioButton.setText(Format.formatText(option.getText(), false));
             int textColor = ContextCompat.getColor(context, R.color.textColorSecondary);
@@ -54,12 +55,39 @@ public class QuestionAdapter extends RecyclerView.Adapter<QuestionAdapter.Questi
             // Xử lý sự kiện khi người dùng thay đổi lựa chọn
             radioButton.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 if (isChecked) {
-                    if(option.isResult()) {
+                    if (option.isResult()) {
                         // trả lời đúng
                         Log.d("TAG", "result correct");
+                        radioButton.setTextColor(ContextCompat.getColor(context, R.color.answerCorrect));
+                        for (int i = 0; i < holder.answerOptionsRadioGroup.getChildCount(); i++) {
+                            RadioButton radio = (RadioButton) holder.answerOptionsRadioGroup.getChildAt(i);
+                            radio.setEnabled(false);
+                        }
                     } else {
                         Log.d("TAG", "result incorrect");
                         // trả lời sai
+                        // tìm câu trả lời đúng
+                        AnswerQuestion correctAnswer = null;
+
+                        for (AnswerQuestion _option : question.getAnswer()) {
+                            if(_option.isResult()) {
+                                correctAnswer = _option;
+                            }
+                        }
+
+                        radioButton.setTextColor(ContextCompat.getColor(context, R.color.answerIncorrect));
+                        for (int i = 0; i < holder.answerOptionsRadioGroup.getChildCount(); i++) {
+                            RadioButton radio = (RadioButton) holder.answerOptionsRadioGroup.getChildAt(i);
+                            radio.setEnabled(false);
+                            if (option.getIndex() != i && correctAnswer != null && correctAnswer.getIndex() == i) {
+                                radio.setTextColor(ContextCompat.getColor(context, R.color.answerCorrect));
+                                radio.setBackgroundColor(ContextCompat.getColor(context, R.color.secondaryColor));
+                                radio.setLayoutParams(new RadioGroup.LayoutParams(
+                                        RadioGroup.LayoutParams.MATCH_PARENT,
+                                        RadioGroup.LayoutParams.WRAP_CONTENT
+                                ));
+                            }
+                        }
                     }
                 }
             });

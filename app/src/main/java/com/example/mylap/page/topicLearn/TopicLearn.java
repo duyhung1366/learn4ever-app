@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -75,6 +76,9 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
     private TopicViewModel topicModel;
     ConfigApi configApi = new ConfigApi();
 
+    private Button btn_prev_topic;
+    private Button btn_next_topic;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +92,8 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
         none_topic = findViewById(R.id.none_topic);
         videoLayout = findViewById(R.id.videoLayout);
         fullLayout = findViewById(R.id.fullLayout);
+        btn_prev_topic = findViewById(R.id.btn_prev_topic);
+        btn_next_topic = findViewById(R.id.btn_next_topic);
         mediaController = new CustomMediaController(this, this);
         FrameLayout mediaControllerContainer = findViewById(R.id.mediaControllerContainer);
 
@@ -318,6 +324,42 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
                 });
             }
         }).start();
+
+        btn_prev_topic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Topic currentTopic = topicModel.get_currentTopic();
+                Topic prevTopic = null;
+                for(int i = 0; i < listTopicChilds.size(); i++) {
+                    if(listTopicChilds.get(i).get_id() == currentTopic.get_id()) {
+                        if( i > 0 ) {
+                            prevTopic = listTopicChilds.get(i - 1);
+                        }
+                    }
+                }
+                if(prevTopic != null){
+                    topicModel.setCurrentTopic(prevTopic);
+                }
+            }
+        });
+
+        btn_next_topic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Topic currentTopic = topicModel.get_currentTopic();
+                Topic nextTopic = null;
+                for(int i = 0; i < listTopicChilds.size(); i++) {
+                    if(listTopicChilds.get(i).get_id() == currentTopic.get_id()) {
+                        if( i < (listTopicChilds.size() - 1) ) {
+                            nextTopic = listTopicChilds.get(i + 1);
+                        }
+                    }
+                }
+                if(nextTopic != null){
+                    topicModel.setCurrentTopic(nextTopic);
+                }
+            }
+        });
     }
 
     private void updateMenu(String courseName, List<TypeGroupHeader> groupHeaders, Map<String, List<TypeGroupHeader>> childData, List<Topic> listTopics) {

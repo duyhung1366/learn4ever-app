@@ -29,7 +29,6 @@ public class UserInfo extends AppCompatActivity {
     private TextView tvEmail;
     private TextView tvUser;
     private TextView tvNumber;
-    private int etGender;
     private RadioGroup radioGioiTinh;
 
     private Button btnFix;
@@ -48,7 +47,6 @@ public class UserInfo extends AppCompatActivity {
         tvUser = findViewById(R.id.tvUser);
         tvEmail = findViewById(R.id.tvEmail);
         tvNumber = findViewById(R.id.tvNumber);
-        etGender = Integer.parseInt(String.valueOf(etGender));
         radioGioiTinh = findViewById(R.id.radioGioiTinh);
         btnFix = findViewById(R.id.btnFix);
         btnExit = findViewById(R.id.btnExit);
@@ -75,15 +73,13 @@ public class UserInfo extends AppCompatActivity {
                         tvUser.setText(user.getName());
                         tvEmail.setText(user.getEmail());
                         tvNumber.setText(user.getPhoneNumber());
-                        etGender = user.getGender();
 
+                        if(user.getGender() == 1) {
+                            radioGioiTinh.check(R.id.radioButtonMale);
+                        } else if(user.getGender() == 2) {
+                            radioGioiTinh.check(R.id.radioButtonFemale);
+                        }
 
-                    }
-                    // Xác định RadioButton tương ứng với giới tính nhận được và chọn nó
-                    if (etGender == 1) {
-                        radioGioiTinh.check(R.id.radioButtonMale);
-                    } else if (etGender == 2) {
-                        radioGioiTinh.check(R.id.radioButtonFemale);
                     }
 
                     progressDialog.dismiss();

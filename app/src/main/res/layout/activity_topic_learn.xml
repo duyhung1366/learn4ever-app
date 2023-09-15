@@ -211,6 +211,27 @@
             android:src="@drawable/ic_dehaze"
             android:background="@drawable/circle_shape" />
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="25dp"
+            >
+            <Button
+                android:id="@+id/btn_prev_topic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bài trước"
+                />
+            <Button
+                android:id="@+id/btn_next_topic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bài tiếp"
+                />
+        </LinearLayout>
+
     </FrameLayout>
 
     <com.google.android.material.navigation.NavigationView

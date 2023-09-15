@@ -9,5 +9,7 @@
     <color name="titleColor">#0a342f</color>
     <color name="textColor">#333</color>
     <color name="textColorSecondary">#20447d</color>
+    <color name="answerCorrect">#2fff00</color>
+    <color name="answerIncorrect">#f00</color>
 
 </resources>
