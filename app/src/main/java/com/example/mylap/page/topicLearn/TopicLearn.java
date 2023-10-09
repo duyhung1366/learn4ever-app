@@ -7,6 +7,7 @@ import android.content.pm.ActivityInfo;
 import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.OrientationEventListener;
 import android.view.Surface;
@@ -78,6 +79,7 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
 
     private Button btn_prev_topic;
     private Button btn_next_topic;
+    private Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,6 +135,25 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
 
                             // Bắt đầu phát video
                             videoView.start();
+
+                            // Bắt sự kiện thay đổi thời gian xem video
+                            videoView.setOnPreparedListener(mp -> {
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+//                                      Log.d("TAG", "curent position : " + videoView.getCurrentPosition() / 1000);
+                                        int currentPosition = videoView.getCurrentPosition() / 1000;
+                                        handler.postDelayed(this, 1000); // Lặp lại sau mỗi giây
+                                        int timePractice = topic.getTimePracticeInVideo().get(0).getTime();
+                                        List<Question> questionData = topic.getTimePracticeInVideo().get(0).getQuestionData();
+                                        Log.d("TAG", "question Data: " + questionData.get(0).getQuestion());
+                                        if(currentPosition == timePractice) {
+                                            handler.removeCallbacksAndMessages(null);
+
+                                        }
+                                    }
+                                }, 1000);
+                            });
 
                             // videoView.getCurrentPosition();
                             break;
@@ -400,23 +421,23 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
             }
         });
 
-        expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
-            @Override
-            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-                boolean isExpanded = parent.isGroupExpanded(groupPosition);
-
-                Log.d("TAG", "isExpanded : " + isExpanded);
-
-                if (isExpanded) {
-
-                } else {
-                    // Mục nhóm đang đóng, bạn có thể thực hiện các hành động khi mở mục nhóm ở đây
-                }
-
-                // Trả về true để ngăn việc ExpandableListView tự động mở và đóng các nhóm
-                return false;
-            }
-        });
+//        expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+//            @Override
+//            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
+//                boolean isExpanded = parent.isGroupExpanded(groupPosition);
+//
+//                Log.d("TAG", "isExpanded : " + isExpanded);
+//
+//                if (isExpanded) {
+//
+//                } else {
+//                    // Mục nhóm đang đóng, bạn có thể thực hiện các hành động khi mở mục nhóm ở đây
+//                }
+//
+//                // Trả về true để ngăn việc ExpandableListView tự động mở và đóng các nhóm
+//                return false;
+//            }
+//        });
 
 
     }
