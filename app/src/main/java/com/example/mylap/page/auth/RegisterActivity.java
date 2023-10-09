@@ -85,10 +85,10 @@ public class RegisterActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Email Không Hợp Lệ", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    if (!isValidphoneNumber(phoneNumber)) {
-                        Toast.makeText(getApplicationContext(), "SĐT Không Hợp Lệ", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
+//                    if (!isValidphoneNumber(phoneNumber)) {
+//                        Toast.makeText(getApplicationContext(), "SĐT Không Hợp Lệ", Toast.LENGTH_SHORT).show();
+//                        return;
+//                    }
 
                     if(username.equals("")) {
                         Toast.makeText(getApplicationContext(), "Mời Nhập Tên Đăng Nhập", Toast.LENGTH_SHORT).show();
@@ -144,6 +144,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                                         Intent intent = new Intent(registerContext, HomeActivity.class);
                                         registerContext.startActivity(intent);
+                                        finish();
                                     } else {
                                         Toast.makeText(getApplicationContext(), "server có lỗi , vui lòng thao tác lại", Toast.LENGTH_SHORT).show();
                                     }
