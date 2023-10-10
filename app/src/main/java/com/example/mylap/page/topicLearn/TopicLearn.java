@@ -1,5 +1,6 @@
 package com.example.mylap.page.topicLearn;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -145,11 +146,30 @@ public class TopicLearn extends AppCompatActivity implements MediaControllerList
                                         int currentPosition = videoView.getCurrentPosition() / 1000;
                                         handler.postDelayed(this, 1000); // Lặp lại sau mỗi giây
                                         int timePractice = topic.getTimePracticeInVideo().get(0).getTime();
-                                        List<Question> questionData = topic.getTimePracticeInVideo().get(0).getQuestionData();
-                                        Log.d("TAG", "question Data: " + questionData.get(0).getQuestion());
+                                        List<Question> questionDatas = topic.getTimePracticeInVideo().get(0).getQuestionData();
+//                                        Log.d("TAG", "question Data: " + questionDatas.get(0).getQuestion());
+                                        Log.d("TAG", "questionDatas: " + questionDatas.get(0).getQuestion());
                                         if(currentPosition == timePractice) {
                                             handler.removeCallbacksAndMessages(null);
 
+                                            Dialog popupDialog = new Dialog(TopicLearn.this);
+                                            popupDialog.setContentView(R.layout.popup_question);
+
+                                            RecyclerView recyclerView = popupDialog.findViewById(R.id.recyclerView_listQuestion_popup);
+                                            Button btnContinue = popupDialog.findViewById(R.id.btnContinue);
+
+                                            btnContinue.setOnClickListener(new View.OnClickListener() {
+                                                @Override
+                                                public void onClick(View view) {
+                                                    videoView.start();
+                                                }
+                                            });
+
+                                            QuestionAdapter questionAdapter = new QuestionAdapter(activity, questionDatas);
+                                            recyclerView.setAdapter(questionAdapter);
+                                            recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+                                            videoView.pause();
+                                            popupDialog.show();
                                         }
                                     }
                                 }, 1000);
