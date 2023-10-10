@@ -58,6 +58,7 @@ public class Topic {
     }
 
     public String get_id() {
+        if(_id == null) return id;
         return _id;
     }
 
