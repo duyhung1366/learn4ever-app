@@ -3,6 +3,8 @@ package com.example.mylap.page.courseDetail;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.mylap.R;
@@ -21,6 +24,7 @@ import com.example.mylap.responsive.CourseDetailRes;
 import com.example.mylap.utils.ProgressDialogUtils;
 import com.squareup.picasso.Picasso;
 
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import retrofit2.Call;
@@ -39,6 +43,24 @@ public class CourseDetail extends AppCompatActivity {
     Course courseData = new Course();
 
     ConfigApi configApi = new ConfigApi();
+
+    final CountDownLatch latch = new CountDownLatch(1);
+
+    Thread thread1;
+    Thread thread2;
+
+//    private Handler handler = new Handler(new Handler.Callback() {
+//        @Override
+//        public boolean handleMessage(@NonNull Message msg) {
+//            switch (msg.what) {
+//                case 0:
+////                    String str = (String) msg.obj;
+//                    thread2.start();
+//                    break;
+//            }
+//            return true;
+//        }
+//    });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,60 +85,89 @@ public class CourseDetail extends AppCompatActivity {
         progress.show();
 
         // call api get course detail by id course
-        new Thread(new Runnable() {
+        thread1 = new Thread(new Runnable() {
             @Override
             public void run() {
+                Log.d("TAG", "Task one ");
                 configApi.getApiService().getCourseById(courseId).enqueue(new Callback<CourseDetailRes>() {
                     @Override
                     public void onResponse(Call<CourseDetailRes> call, Response<CourseDetailRes> response) {
-                        if (response.isSuccessful() && response.body().getStatus() == 0) {
-                            Course dataCourse = response.body().getData();
-                            courseData = dataCourse;
-                            titleCourse.setText(dataCourse.getCourseName());
-//                          desCourse.setText(Format.formatText(dataCourse.getDes()));
-                            shortDesCourse.setText(dataCourse.getShortDes());
-                            Picasso.get().load(dataCourse.getAvatar()).into(imageCourse);
-                        }
-                        completedAPICalls.incrementAndGet();
-                        CheckCompletedCallApi(completedAPICalls, progress);
+                        Log.d("TAG", "Task one successful");
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                latch.countDown();
+                                if (response.isSuccessful() && response.body().getStatus() == 0) {
+                                    final Course dataCourse = response.body().getData();
+//                            Message message = handler.obtainMessage(0, )
+//                            handler.sendMessage(message);
+//                                    handler.sendEmptyMessage(0);
+                                    titleCourse.setText(dataCourse.getCourseName());
+                                    shortDesCourse.setText(dataCourse.getShortDes());
+                                    Picasso.get().load(dataCourse.getAvatar()).into(imageCourse);
+
+                                }
+                                completedAPICalls.incrementAndGet();
+                                CheckCompletedCallApi(completedAPICalls, progress);
+                            }
+                        });
                     }
 
                     @Override
                     public void onFailure(Call<CourseDetailRes> call, Throwable t) {
-                        completedAPICalls.incrementAndGet();
-                        CheckCompletedCallApi(completedAPICalls, progress);
-                        Toast.makeText(getApplicationContext(), "server bị lỗi", Toast.LENGTH_SHORT).show();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                completedAPICalls.incrementAndGet();
+                                CheckCompletedCallApi(completedAPICalls, progress);
+                                Toast.makeText(getApplicationContext(), "Server bị lỗi", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                         Log.d("TAG", "error api:  " + t);
                     }
                 });
             }
-        }).start();
+        });
+
+        Log.d("TAG", "main thread !");
 
         // call api get total learn and exam
-        new Thread(new Runnable() {
+        thread2 = new Thread(new Runnable() {
             @Override
             public void run() {
+                Log.d("TAG", "Task two ");
                 configApi.getApiService().countTopicInCourse(courseId).enqueue(new Callback<CountLearnRes>() {
                     @Override
                     public void onResponse(Call<CountLearnRes> call, Response<CountLearnRes> response) {
-                        if (response.isSuccessful() && response.body().getStatus() == 0) {
-                            numCourse.setText("Tổng số bài học: " + response.body().getData().getTotalLearn());
-                            numExam.setText("Tổng đề kiểm tra: " + response.body().getData().getTotalExam());
-                        }
-                        completedAPICalls.incrementAndGet();
-                        CheckCompletedCallApi(completedAPICalls, progress);
+                        Log.d("TAG", "Task two successful");
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (response.isSuccessful() && response.body().getStatus() == 0) {
+                                    numCourse.setText("Tổng số bài học: " + response.body().getData().getTotalLearn());
+                                    numExam.setText("Tổng đề kiểm tra: " + response.body().getData().getTotalExam());
+                                }
+                                completedAPICalls.incrementAndGet();
+                                CheckCompletedCallApi(completedAPICalls, progress);
+                            }
+                        });
                     }
 
                     @Override
                     public void onFailure(Call<CountLearnRes> call, Throwable t) {
-                        completedAPICalls.incrementAndGet();
-                        CheckCompletedCallApi(completedAPICalls, progress);
-                        Toast.makeText(getApplicationContext(), "server bị lỗi", Toast.LENGTH_SHORT).show();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                completedAPICalls.incrementAndGet();
+                                CheckCompletedCallApi(completedAPICalls, progress);
+                                Toast.makeText(getApplicationContext(), "server bị lỗi", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                         Log.d("TAG", "error api:  " + t);
                     }
                 });
             }
-        }).start();
+        });
 
         btn_learn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,6 +179,9 @@ public class CourseDetail extends AppCompatActivity {
                 CourseDetail.this.startActivity(intent);
             }
         });
+
+        thread1.start();
+        thread2.start();
     }
 
     private void CheckCompletedCallApi(AtomicInteger count, ProgressDialog progressDialog) {
