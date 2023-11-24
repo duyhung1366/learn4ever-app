@@ -24,6 +24,7 @@ import com.example.mylap.page.auth.LoginActivity;
 import com.example.mylap.page.auth.RegisterActivity;
 import com.example.mylap.page.userInfo.UserInfo;
 import com.example.mylap.responsive.GetCategory;
+import com.example.mylap.singleton.AuthManager;
 import com.example.mylap.utils.ProgressDialogUtils;
 import com.example.mylap.utils.SharedPreferencesUtils;
 
@@ -62,6 +63,7 @@ public class HomeActivity extends AppCompatActivity {
                 case checkSessionSuccess:
                     //check session successful
                     Log.d("TAG", "check session successful! ");
+                    AuthManager.getInstance().setUserId("1");
                     btn_Login.setVisibility(View.GONE);
                     btn_register.setVisibility(View.GONE);
                     btn_Logout.setVisibility(View.VISIBLE);

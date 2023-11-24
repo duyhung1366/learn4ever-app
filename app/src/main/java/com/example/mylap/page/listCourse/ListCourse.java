@@ -15,6 +15,7 @@ import com.example.mylap.R;
 import com.example.mylap.api.ConfigApi;
 import com.example.mylap.models.Course;
 import com.example.mylap.responsive.GetListCourse;
+import com.example.mylap.singleton.AuthManager;
 import com.example.mylap.utils.ProgressDialogUtils;
 
 import java.io.IOException;
@@ -49,6 +50,8 @@ public class ListCourse extends AppCompatActivity {
         Intent intent = getIntent();
         String categoryId = intent.getStringExtra("categoryId");
         String categoryName = intent.getStringExtra("categoryName");
+
+        Log.d("TAG", "user Id: " + AuthManager.getInstance().getUserId());
 
         textView.setText(textView.getText().toString() + " " + categoryName);
 

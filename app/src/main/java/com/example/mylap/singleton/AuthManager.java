@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 public class AuthManager {
     private static AuthManager instance;
     private MutableLiveData<Boolean> isLoginLiveData = new MutableLiveData<>();
+    private String userId;
 
     private AuthManager() {
         // Khởi tạo trạng thái đăng nhập mặc định
@@ -24,5 +25,13 @@ public class AuthManager {
 
     public void setLoginStatus(boolean status) {
         isLoginLiveData.setValue(status);
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getUserId() {
+        return userId;
     }
 }
