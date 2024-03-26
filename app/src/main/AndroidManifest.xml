@@ -12,10 +12,10 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
-    <!-- Quyền truy cập cảm biến gia tốc -->
-    <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="true" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- Quyền truy cập cảm biến gia tốc -->
+    <uses-feature
+        android:name="android.hardware.sensor.accelerometer"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -28,6 +28,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyLap"
         tools:targetApi="31">
+        <activity
+            android:name=".page.resetPwd.ResetPassWord"
+            android:exported="false" />
         <activity
             android:name=".page.topicLearn.TopicLearn"
             android:exported="false" />

@@ -8,6 +8,7 @@ import com.example.mylap.responsive.GetListCourse;
 import com.example.mylap.responsive.GetListTopicRes;
 import com.example.mylap.responsive.GetQuestionRes;
 import com.example.mylap.responsive.LoginRes;
+import com.example.mylap.responsive.ResetPass;
 import com.example.mylap.responsive.UpdateUserRes;
 
 import retrofit2.Call;
@@ -34,7 +35,11 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("/api-mobile/login")
-    Call<LoginRes> login(@Field("account") String account, @Field("password") String password);
+    Call<LoginRes> login(
+            @Field("account") String account,
+            @Field("password") String password,
+            @Field("email") String email
+    );
 
     @FormUrlEncoded
     @POST("/api-mobile/register")
@@ -70,6 +75,22 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("/api-mobile/load-question-by-topic-id")
     Call<GetQuestionRes> getQuestion(@Field("topicId") String topicId);
+
+    @FormUrlEncoded
+    @POST("/api-mobile/send-code-reset-pass")
+    Call<ResetPass> sendCodeResetPass(
+            @Field("email") String email,
+            @Field("account") String account
+    );
+
+    @FormUrlEncoded
+    @POST("/api-mobile/reset-pass-word")
+    Call<ResetPass> resetPassWord(
+            @Field("email") String email,
+            @Field("account") String account,
+            @Field("account") String newPwd,
+            @Field("account") String code
+    );
 
     // Các phương thức API khác...
 }

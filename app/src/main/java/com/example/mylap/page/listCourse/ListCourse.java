@@ -58,57 +58,57 @@ public class ListCourse extends AppCompatActivity {
         progressDialog = new ProgressDialogUtils().createProgressDialog(this);
         progressDialog.show();
 
-        MyAsyncTask myAsyncTask = new MyAsyncTask();
-        myAsyncTask.execute(categoryId);
+//        MyAsyncTask myAsyncTask = new MyAsyncTask();
+//        myAsyncTask.execute(categoryId);
 
-//        Call<GetListCourse> call = configApi.getApiService().getListCourseByCategoryId(categoryId);
-//        try {
-//            Response<GetListCourse> response = call.execute();
-//            progressDialog.dismiss();
-//            if (response.isSuccessful()) {
-//                GetListCourse data = response.body();
-//                if (data != null) {
-//                    for (int i = 0; i < data.getData().size(); i++) {
-//                        courseList.add(data.getData().get(i));
-//                    }
-//                    courseAdapter.notifyDataSetChanged();
-//                }
-//            } else {
-//                Log.d("TAG", "error");
-//            }
-//        } catch (Throwable e) {
-//            progressDialog.dismiss();
-//            e.printStackTrace();
-//        }
+        Call<GetListCourse> call = configApi.getApiService().getListCourseByCategoryId(categoryId);
+        try {
+            Response<GetListCourse> response = call.execute();
+            progressDialog.dismiss();
+            if (response.isSuccessful()) {
+                GetListCourse data = response.body();
+                if (data != null) {
+                    for (int i = 0; i < data.getData().size(); i++) {
+                        courseList.add(data.getData().get(i));
+                    }
+                    courseAdapter.notifyDataSetChanged();
+                }
+            } else {
+                Log.d("TAG", "error");
+            }
+        } catch (Throwable e) {
+            progressDialog.dismiss();
+            e.printStackTrace();
+        }
 
-//        configApi.getApiService().getListCourseByCategoryId(categoryId).enqueue(new Callback<GetListCourse>() {
-//            @Override
-//            public void onResponse(Call<GetListCourse> call, Response<GetListCourse> response) {
-//                progressDialog.dismiss();
-//                if (response.isSuccessful()) {
-//                    GetListCourse data = response.body();
-//                    for (int i = 0; i < data.getData().size(); i++) {
-//                        courseList.add(data.getData().get(i));
-//                    }
-//                    courseAdapter.notifyDataSetChanged();
-//                } else {
-//                    Log.d("TAG", "error");
-//                    // Xử lý lỗi khi response không thành
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<GetListCourse> call, Throwable t) {
-//                // Xử lý lỗi khi request thất bại
-//                Log.d("TAG", "error api:  " + t);
-//                progressDialog.dismiss();
-//            }
-//        });
+        configApi.getApiService().getListCourseByCategoryId(categoryId).enqueue(new Callback<GetListCourse>() {
+            @Override
+            public void onResponse(Call<GetListCourse> call, Response<GetListCourse> response) {
+                progressDialog.dismiss();
+                if (response.isSuccessful()) {
+                    GetListCourse data = response.body();
+                    for (int i = 0; i < data.getData().size(); i++) {
+                        courseList.add(data.getData().get(i));
+                    }
+                    courseAdapter.notifyDataSetChanged();
+                } else {
+                    Log.d("TAG", "error");
+                    // Xử lý lỗi khi response không thành
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GetListCourse> call, Throwable t) {
+                // Xử lý lỗi khi request thất bại
+                Log.d("TAG", "error api:  " + t);
+                progressDialog.dismiss();
+            }
+        });
 
     }
 
     // AsyncTask với ba tham số: Params, Progress, Result
-    private class MyAsyncTask extends AsyncTask<String, Void, List<Course>> {
+    private class MyAsyncTask extends AsyncTask<String, String, List<Course>> {
 
         @Override
         protected List<Course> doInBackground(String ...categoryId) {

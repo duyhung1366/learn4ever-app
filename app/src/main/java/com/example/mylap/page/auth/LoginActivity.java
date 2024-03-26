@@ -15,7 +15,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.mylap.R;
 import com.example.mylap.api.ConfigApi;
 import com.example.mylap.page.home.HomeActivity;
+import com.example.mylap.page.resetPwd.ResetPassWord;
 import com.example.mylap.responsive.LoginRes;
+import com.example.mylap.responsive.ResetPass;
 import com.example.mylap.singleton.AuthManager;
 import com.example.mylap.utils.ProgressDialogUtils;
 import com.example.mylap.utils.SharedPreferencesUtils;
@@ -29,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etPassword;
     private Button btnLogin;
     private Button btnReRegister;
+    private Button btnResetPass;
     ConfigApi configApi = new ConfigApi();
     private Context loginContext;
 
@@ -38,26 +41,21 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         this.loginContext = this;
 
-        btnReRegister = findViewById(R.id.btnReRegister);
-
-        // Ánh xạ các thành phần trong giao diện
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
         btnReRegister = findViewById(R.id.btnReRegister);
+        btnResetPass = findViewById(R.id.btnResetPass);
 
-
-        // Đăng ký bắt sự kiện khi nút đăng nhập được nhấn
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Lấy tên đăng nhập và mật khẩu từ EditText tương ứng
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
 
                 ProgressDialog progressDialog = ProgressDialogUtils.createProgressDialog(loginContext);
                 progressDialog.show();
-                configApi.getApiService().login(username, password).enqueue(new Callback<LoginRes>() {
+                configApi.getApiService().login(username, password, username).enqueue(new Callback<LoginRes>() {
                     @Override
                     public void onResponse(Call<LoginRes> call, Response<LoginRes> response) {
                         if (response.isSuccessful()) {
@@ -67,10 +65,8 @@ public class LoginActivity extends AppCompatActivity {
                             } else if(token.equals("-1")) {
                                 Toast.makeText(getApplicationContext(), "Không tồn tại tài khoản", Toast.LENGTH_SHORT).show();
                             } else if(!token.equals("")) {
-                                // Lưu giá trị token vào SharedPreferences
                                 SharedPreferencesUtils.saveStringToSharedPreferences(loginContext,"token", token);
 
-                                // change value isLogin
                                 AuthManager.getInstance().setLoginStatus(true);
 
                                 Toast.makeText(getApplicationContext(), "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
@@ -83,13 +79,11 @@ public class LoginActivity extends AppCompatActivity {
                             progressDialog.dismiss();
                             Log.d("TAG", "error");
                             Toast.makeText(getApplicationContext(), "server bị lỗi", Toast.LENGTH_SHORT).show();
-                            // Xử lý lỗi khi response không thành
                         }
                     }
 
                     @Override
                     public void onFailure(Call<LoginRes> call, Throwable t) {
-                        // Xử lý lỗi khi request thất bại
                         progressDialog.dismiss();
                         Toast.makeText(getApplicationContext(), "server bị lỗi", Toast.LENGTH_SHORT).show();
                         Log.d("TAG", "error api:  " + t);
@@ -104,6 +98,15 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        btnResetPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, ResetPassWord.class);
                 startActivity(intent);
                 finish();
             }

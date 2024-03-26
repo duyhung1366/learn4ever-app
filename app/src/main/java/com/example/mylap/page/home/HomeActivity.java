@@ -68,11 +68,11 @@ public class HomeActivity extends AppCompatActivity {
                     btn_register.setVisibility(View.GONE);
                     btn_Logout.setVisibility(View.VISIBLE);
                     showUserinfo.setVisibility(View.VISIBLE);
-                    progressDialogLoadSession.dismiss();
+//                    progressDialogLoadSession.dismiss();
                     progressDialogLoadListCategory = new ProgressDialogUtils().createProgressDialog(activity);
                     progressDialogLoadListCategory.show();
 
-                    threadLoadListCategory.start();
+//                    threadLoadListCategory.start();
 
                     break;
                 case checkSessionNotMatch:
@@ -93,7 +93,7 @@ public class HomeActivity extends AppCompatActivity {
                 case loadListCategorySuccess:
                     Log.d("TAG", "loadListCategorySuccess! ");
 
-                    progressDialogLoadListCategory.dismiss();
+//                    progressDialogLoadListCategory.dismiss();
                     GetCategory getCategory = (GetCategory) msg.obj;
                     for (int i = 0; i < getCategory.getData().size(); i++) {
                         categoryList.add(getCategory.getData().get(i));
@@ -103,7 +103,7 @@ public class HomeActivity extends AppCompatActivity {
                 case loadListCategoryFail:
                     Log.d("TAG", "loadListCategoryFail! ");
                     Toast.makeText(getApplicationContext(), "server bị lỗi", Toast.LENGTH_SHORT).show();
-                    progressDialogLoadListCategory.dismiss();
+//                    progressDialogLoadListCategory.dismiss();
                     break;
             }
             return true;
