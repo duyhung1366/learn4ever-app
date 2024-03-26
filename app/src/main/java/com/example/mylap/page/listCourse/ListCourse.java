@@ -108,46 +108,46 @@ public class ListCourse extends AppCompatActivity {
     }
 
     // AsyncTask với ba tham số: Params, Progress, Result
-    private class MyAsyncTask extends AsyncTask<String, String, List<Course>> {
-
-        @Override
-        protected List<Course> doInBackground(String ...categoryId) {
-            Log.d("TAG", "doInBackground: ");
-            Log.d("TAG", "categoryId[0]: " + categoryId[0]);
-
-            List<Course> listCourse = new ArrayList<>();
-            Call<GetListCourse> call = configApi.getApiService().getListCourseByCategoryId(categoryId[0]);
-            try {
-                Response<GetListCourse> response = call.execute();
-                if (response.isSuccessful()) {
-                    GetListCourse data = response.body();
-                    if (data != null) {
-                        for (int i = 0; i < data.getData().size(); i++) {
-                            Log.d("TAG", "name course : " + data.getData().get(i).getCourseName());
-                            listCourse.add(data.getData().get(i));
-                        }
-                    }
-                } else {
-                    Log.d("TAG", "error");
-                }
-            } catch (Throwable e) {
-                e.printStackTrace();
-            }
-            Log.d("TAG", "listCourse: " + listCourse.size());
-            return listCourse;
-
-        }
-
-        @Override
-        protected void onPostExecute(List<Course> result) {
-            // Xử lý kết quả sau khi tải xong
-            Log.d("TAG", "onPostExecute: ");
-            progressDialog.dismiss();
-            for (int i = 0; i < result.size(); i++) {
-                Log.d("TAG", "name : " + result.get(i).getCourseName());
-                courseList.add(result.get(i));
-            }
-            courseAdapter.notifyDataSetChanged();
-        }
-    }
+//    private class MyAsyncTask extends AsyncTask<String, String, List<Course>> {
+//
+//        @Override
+//        protected List<Course> doInBackground(String ...categoryId) {
+//            Log.d("TAG", "doInBackground: ");
+//            Log.d("TAG", "categoryId[0]: " + categoryId[0]);
+//
+//            List<Course> listCourse = new ArrayList<>();
+//            Call<GetListCourse> call = configApi.getApiService().getListCourseByCategoryId(categoryId[0]);
+//            try {
+//                Response<GetListCourse> response = call.execute();
+//                if (response.isSuccessful()) {
+//                    GetListCourse data = response.body();
+//                    if (data != null) {
+//                        for (int i = 0; i < data.getData().size(); i++) {
+//                            Log.d("TAG", "name course : " + data.getData().get(i).getCourseName());
+//                            listCourse.add(data.getData().get(i));
+//                        }
+//                    }
+//                } else {
+//                    Log.d("TAG", "error");
+//                }
+//            } catch (Throwable e) {
+//                e.printStackTrace();
+//            }
+//            Log.d("TAG", "listCourse: " + listCourse.size());
+//            return listCourse;
+//
+//        }
+//
+//        @Override
+//        protected void onPostExecute(List<Course> result) {
+//            // Xử lý kết quả sau khi tải xong
+//            Log.d("TAG", "onPostExecute: ");
+//            progressDialog.dismiss();
+//            for (int i = 0; i < result.size(); i++) {
+//                Log.d("TAG", "name : " + result.get(i).getCourseName());
+//                courseList.add(result.get(i));
+//            }
+//            courseAdapter.notifyDataSetChanged();
+//        }
+//    }
 }
